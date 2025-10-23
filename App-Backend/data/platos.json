@@ -1,0 +1,65 @@
+[
+  {
+    "id": 1,
+    "nombre": "Ensalada César",
+    "kcal": 250,
+    "prote": 8,
+    "carb": 10,
+    "grasa": 18,
+    "precio": 12.5
+  },
+  {
+    "id": 2,
+    "nombre": "Pechuga a la plancha",
+    "kcal": 200,
+    "prote": 30,
+    "carb": 0,
+    "grasa": 5,
+    "precio": 18
+  },
+  {
+    "id": 3,
+    "nombre": "Salmón al horno",
+    "kcal": 320,
+    "prote": 25,
+    "carb": 2,
+    "grasa": 22,
+    "precio": 22
+  },
+  {
+    "id": 4,
+    "nombre": "Avena con frutas",
+    "kcal": 180,
+    "prote": 6,
+    "carb": 32,
+    "grasa": 3,
+    "precio": 7.5
+  },
+  {
+    "id": 5,
+    "nombre": "Yogur con granola",
+    "kcal": 220,
+    "prote": 10,
+    "carb": 28,
+    "grasa": 6,
+    "precio": 8
+  },
+  {
+    "id": 6,
+    "nombre": "Bowl de quinoa",
+    "kcal": 270,
+    "prote": 9,
+    "carb": 40,
+    "grasa": 5,
+    "precio": 13
+  },
+  {
+    "id": 7,
+    "nombre": "Tortilla de espinacas",
+    "kcal": 150,
+    "prote": 12,
+    "carb": 4,
+    "grasa": 9,
+    "precio": 9.5
+  }
+]

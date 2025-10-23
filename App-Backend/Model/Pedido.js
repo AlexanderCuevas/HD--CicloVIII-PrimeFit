@@ -1,6 +1,7 @@
 export default class Pedido {
   constructor({ id, cliente, items = [], fecha = new Date() }) {
-    this.id = id ?? Date.now().toString();
+    // id será asignado por el servicio de pedidos (contador secuencial)
+    this.id = id ?? null;
     this.cliente = cliente || 'Cliente';
     this.items = items; // array de ItemPedido
     this.fecha = new Date(fecha);

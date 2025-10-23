@@ -2,7 +2,8 @@
 export default class Plato {
   constructor({ id, nombre, kcal, prote, carb, grasa, precio }) {
     if (!nombre || typeof nombre !== 'string') throw new Error('nombre requerido');
-    this.id = id ?? Date.now().toString();
+    // id será asignado por el servicio (contador secuencial). Si no se pasa, queda null.
+    this.id = id ?? null;
     this.nombre = nombre;
     this.kcal = Number(kcal) || 0;
     this.prote = Number(prote) || 0;

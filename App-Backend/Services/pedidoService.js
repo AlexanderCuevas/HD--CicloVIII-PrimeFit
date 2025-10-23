@@ -2,9 +2,10 @@ import Pedido from '../Model/Pedido.js';
 import ItemPedido from '../Model/ItemPedido.js';
 
 const pedidos = [];
+let nextPedidoId = 1;
 
 export const crearPedido = ({ cliente }) => {
-  const pedido = new Pedido({ cliente });
+  const pedido = new Pedido({ id: nextPedidoId++, cliente });
   pedidos.push(pedido);
   return pedido;
 };
