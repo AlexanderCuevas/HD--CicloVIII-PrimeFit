@@ -8,7 +8,7 @@ Penelope Betsabe Maria Levano Diaz
 
 ## Integrantes:
 - Aguilar Jaico Franklin Alex           (Lider del Proyecto - desarrollo del backend)
-- Bello Capa Rodrigo                    (Desarrollo del fronend)
+- Bello Capa Rodrigo                    (Desarrollo del backend)
 - Cuevas Fernandez Victor Alexander     (Desarrollador del frontend)
 - Rodriguez Mendoza Steven              (Encargado de la documentación)
 - Perez Guanilo Sevas                   (Encargado de realizar pruebas de funcionalidad)
