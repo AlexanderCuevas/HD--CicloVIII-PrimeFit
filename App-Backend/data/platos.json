@@ -61,5 +61,14 @@
     "carb": 4,
     "grasa": 9,
     "precio": 9.5
+  },
+  {
+    "id": 8,
+    "nombre": "Ensalada",
+    "kcal": 150,
+    "prote": 5,
+    "carb": 10,
+    "grasa": 8,
+    "precio": 12.5
   }
 ]

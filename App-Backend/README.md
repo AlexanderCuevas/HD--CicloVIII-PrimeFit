@@ -107,6 +107,114 @@ npm install
 ```pwsh
 node .\app.js
 ```
+
+### Mostrar solo el menú (modo no interactivo)
+
+Si quieres imprimir únicamente la lista de opciones en la consola (útil para scripts o CI), hay un modo no interactivo:
+
+```pwsh
+# Usando node directamente
+node .\app.js --show-menu
+
+# o usando el script npm
+npm run show-menu
+```
+
+## Autenticación y roles
+
+Se añadió un sistema de autenticación simple con roles (`admin` y `user`). Al iniciar la aplicación en modo interactivo se solicita login antes de mostrar el menú. El archivo de usuarios se encuentra en `data/users.json`.
+
+- Usuarios por defecto: si `data/users.json` está vacío, el servicio crea automáticamente dos usuarios de prueba:
+  - `admin` / `admin`  (rol: `admin`)
+  - `user` / `user`    (rol: `user`)
+
+- Roles y permisos:
+  - `admin`: puede registrar platos y ajustar stock (opciones 1 y 5).
+  - `user`: puede listar platos, crear pedidos y ver pedidos.
+
+- Hashing de contraseñas: el servicio intentará usar `bcryptjs` si está instalado. Si no, utiliza un fallback seguro basado en `crypto.pbkdf2Sync` para que la autenticación funcione sin pasos extra.
+
+### Crear usuarios
+
+Por ahora hay dos formas de crear usuarios:
+
+1) Manual — editar `App-Backend/data/users.json` directamente con objetos que tengan `username`, `passwordHash` y `role` (no recomendado sin hashing).
+
+2) Programático — ejecutar un pequeño script Node que use el servicio `authService`. Ejemplo (ejecutar desde `App-Backend`):
+
+```pwsh
+node -e "import('./Services/authService.js').then(s=>s.crearUsuario({ username: 'miadmin', password: 'secreto', role: 'admin'})).then(console.log).catch(e=>console.error(e.message))"
+```
+
+Nota: el snippet anterior usa dynamic import y crea el usuario con el password hasheado correctamente.
+
+## Scripts disponibles (package.json)
+
+- `npm start` — Ejecuta `node app.js` (modo interactivo: pide login y muestra menú).
+- `npm run dev` — Ejecuta `nodemon index.js` (si lo configuras).
+- `npm run test:catalogo` — Ejecuta `node Scripts/testCatalogo.js` (script de prueba que crea un plato y lista).
+- `npm run show-menu` — Ejecuta `node app.js --show-menu` (imprime solo la lista de opciones y sale).
+
+## Scripts de prueba útiles
+
+- `Scripts/testCatalogo.js` — script que crea un plato de prueba y muestra la lista (útil para pruebas rápidas).
+- `Scripts/testAuth.js` — script que verifica la existencia de usuarios por defecto y prueba autenticaciones (`admin/admin`, `user/user`). Ejecuta:
+
+```pwsh
+node Scripts/testAuth.js
+```
+
+## Dependencias y notas de seguridad
+
+- `bcryptjs` está listado como dependencia opcional. Si deseas usar `bcryptjs` (recomendado en producción) instala:
+
+```pwsh
+npm install bcryptjs
+```
+
+- Si no instalas `bcryptjs`, la aplicación seguirá funcionando usando el fallback con `crypto` (pbkdf2). Para producción, instala `bcryptjs` o usa una estrategia de gestión de secretos más robusta.
+
+## Flujo rápido para probar (recomendado)
+
+1. Instalar dependencias (si no se han instalado):
+
+```pwsh
+cd App-Backend
+npm install
+```
+
+2. Ejecutar test de autenticación:
+
+```pwsh
+node Scripts/testAuth.js
+```
+
+3. Iniciar la app e iniciar sesión con el usuario admin:
+
+```pwsh
+node app.js
+# Usuario: admin
+# Password: admin
+```
+
+4. Probar acciones (1 = registrar plato, 2 = listar, 3 = crear pedido, 4 = ver pedidos, 5 = ajustar stock).
+
+## Notas finales
+Estas mejoras agregan autenticación y control de roles sin añadir infra compleja. Si quieres que añada un comando CLI para crear usuarios (`npm run user:add`) o un endpoint REST protegido con JWT, puedo implementarlo a continuación.
+
+### Mostrar solo el menú (modo no interactivo)
+
+Si quieres imprimir únicamente la lista de opciones en la consola (útil para scripts o CI), hay un modo no interactivo:
+
+```pwsh
+# Usando node directamente
+node .\app.js --show-menu
+
+# o usando el script npm
+npm run show-menu
+```
+
+Este comando muestra el encabezado y la lista de opciones y sale inmediatamente, sin requerir entrada del usuario.
 4. Ejecutar el script de prueba del catálogo:
 ```pwsh
 npm run test:catalogo

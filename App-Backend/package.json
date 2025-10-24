@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon index.js",
-    "test:catalogo": "node Scripts/testCatalogo.js"
+    "test:catalogo": "node Scripts/testCatalogo.js",
+    "show-menu": "node app.js --show-menu"
+    ,"user:add": "node Scripts/addUser.js"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +16,9 @@
   "description": "Módulo en consola del proyecto PrimeFIT",
   "dependencies": {
     "prompt-sync": "^4.2.0"
+  },
+  "optionalDependencies": {
+    "bcryptjs": "^2.4.3"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
