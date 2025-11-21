@@ -1,19 +1,55 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+
+
+interface Pedido {
+  id: number;
+  fecha: string;
+  estado: string;
+}
+
+interface Usuario {
+  nombre: string;
+  correo: string;
+}
 
 @Component({
   selector: 'app-cuenta',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   template: `
     <div class="cuenta-container">
       <div class="cuenta-card">
         <h1>Mi Cuenta</h1>
-        <p class="mensaje">Esta sección estará disponible próximamente.</p>
-        <p class="descripcion">
-          Aquí podrás gestionar tu perfil, ver tus pedidos anteriores y configurar tus preferencias.
-        </p>
+        <!-- Edición de datos personales -->
+        <div class="perfil-section">
+          <h2>Datos personales</h2>
+          <form (ngSubmit)="guardarCambios()">
+            <label>
+              Nombre:
+              <input [(ngModel)]="usuario.nombre" name="nombre" required />
+            </label>
+            <label>
+              Correo:
+              <input [(ngModel)]="usuario.correo" name="correo" required type="email" />
+            </label>
+            <button type="submit" class="btn-guardar">Guardar cambios</button>
+          </form>
+        </div>
+        <!-- Historial de pedidos -->
+        <div class="historial-section">
+          <h2>Historial de pedidos</h2>
+          <ul *ngIf="historialPedidos.length > 0; else sinPedidos">
+            <li *ngFor="let pedido of historialPedidos">
+              Pedido #{{pedido.id}} - {{pedido.fecha}} - {{pedido.estado}}
+            </li>
+          </ul>
+          <ng-template #sinPedidos>
+            <p>No tienes pedidos anteriores.</p>
+          </ng-template>
+        </div>
         <button class="btn-volver" routerLink="/">Volver al Menú</button>
       </div>
     </div>
@@ -87,4 +123,20 @@ import { RouterModule } from '@angular/router';
     }
   `]
 })
-export class CuentaComponent {}
+
+export class CuentaComponent {
+  usuario: Usuario = {
+    nombre: 'Juan Pérez',
+    correo: 'juan.perez@email.com'
+  };
+
+  historialPedidos: Pedido[] = [
+    { id: 101, fecha: '2025-11-01', estado: 'Entregado' },
+    { id: 102, fecha: '2025-11-10', estado: 'En camino' }
+  ];
+
+  guardarCambios() {
+    // Aquí iría la lógica para guardar los cambios del usuario
+    alert('Datos actualizados correctamente');
+  }
+}
