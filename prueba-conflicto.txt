@@ -1,0 +1,1 @@
+Esta es la versión B del archivo de prueba para simular un conflicto.
