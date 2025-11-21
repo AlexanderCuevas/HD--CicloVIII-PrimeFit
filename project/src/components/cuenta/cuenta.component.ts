@@ -1,150 +1,59 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Router } from '@angular/router';
-import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService, User, Pedido } from '../../services/auth.service';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+
+
+interface Pedido {
+  id: number;
+  fecha: string;
+  estado: string;
+}
+
+interface Usuario {
+  nombre: string;
+  correo: string;
+}
+
 
 @Component({
   selector: 'app-cuenta',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule],
+
+  imports: [CommonModule, RouterModule, FormsModule],
   template: `
     <div class="cuenta-container">
-      <!-- Si no está autenticado -->
-      <div *ngIf="!usuarioActual" class="no-autenticado">
-        <div class="mensaje-box">
-          <h2>Inicia sesión para acceder a tu cuenta</h2>
-          <p>Necesitas estar autenticado para ver tu perfil y pedidos</p>
-          <button class="btn-primary" routerLink="/login">Ir al Login</button>
+      <div class="cuenta-card">
+        <h1>Mi Cuenta</h1>
+        <!-- Edición de datos personales -->
+        <div class="perfil-section">
+          <h2>Datos personales</h2>
+          <form (ngSubmit)="guardarCambios()">
+            <label>
+              Nombre:
+              <input [(ngModel)]="usuario.nombre" name="nombre" required />
+            </label>
+            <label>
+              Correo:
+              <input [(ngModel)]="usuario.correo" name="correo" required type="email" />
+            </label>
+            <button type="submit" class="btn-guardar">Guardar cambios</button>
+          </form>
         </div>
-      </div>
-
-      <!-- Si está autenticado -->
-      <div *ngIf="usuarioActual" class="cuenta-contenido">
-        <!-- Header -->
-        <div class="header-cuenta">
-          <h1>Mi Cuenta</h1>
-          <button class="btn-logout" (click)="cerrarSesion()">Cerrar Sesión</button>
+        <!-- Historial de pedidos -->
+        <div class="historial-section">
+          <h2>Historial de pedidos</h2>
+          <ul *ngIf="historialPedidos.length > 0; else sinPedidos">
+            <li *ngFor="let pedido of historialPedidos">
+              Pedido #{{pedido.id}} - {{pedido.fecha}} - {{pedido.estado}}
+            </li>
+          </ul>
+          <ng-template #sinPedidos>
+            <p>No tienes pedidos anteriores.</p>
+          </ng-template>
         </div>
-
-        <!-- Tabs de navegación -->
-        <div class="tabs">
-          <button 
-            [class.active]="tabActiva === 'perfil'" 
-            (click)="cambiarTab('perfil')"
-            class="tab-btn"
-          >
-            📋 Perfil
-          </button>
-          <button 
-            [class.active]="tabActiva === 'pedidos'" 
-            (click)="cambiarTab('pedidos')"
-            class="tab-btn"
-          >
-            🛒 Mis Pedidos
-          </button>
-        </div>
-
-        <!-- Tab de Perfil -->
-        <div *ngIf="tabActiva === 'perfil'" class="tab-content">
-          <div class="perfil-section">
-            <h2>Mi Perfil</h2>
-            
-            <div *ngIf="!editandoPerfil" class="perfil-view">
-              <div class="perfil-item">
-                <span class="label">Nombre:</span>
-                <span class="valor">{{ usuarioActual.nombre }}</span>
-              </div>
-              <div class="perfil-item">
-                <span class="label">Email:</span>
-                <span class="valor">{{ usuarioActual.email }}</span>
-              </div>
-              <div class="perfil-item">
-                <span class="label">Teléfono:</span>
-                <span class="valor">{{ usuarioActual.telefono || 'No registrado' }}</span>
-              </div>
-              <div class="perfil-item">
-                <span class="label">Ciudad:</span>
-                <span class="valor">{{ usuarioActual.ciudad || 'No registrado' }}</span>
-              </div>
-              <div class="perfil-item">
-                <span class="label">Dirección:</span>
-                <span class="valor">{{ usuarioActual.direccion || 'No registrado' }}</span>
-              </div>
-              <button class="btn-editar" (click)="iniciarEdicion()">✏️ Editar Perfil</button>
-            </div>
-
-            <div *ngIf="editandoPerfil" class="perfil-edit">
-              <form [formGroup]="perfilForm" (ngSubmit)="guardarCambios()" class="form-edicion">
-                <div class="form-group">
-                  <label>Nombre Completo</label>
-                  <input type="text" formControlName="nombre" class="form-input">
-                </div>
-                <div class="form-group">
-                  <label>Teléfono</label>
-                  <input type="tel" formControlName="telefono" class="form-input">
-                </div>
-                <div class="form-group">
-                  <label>Ciudad</label>
-                  <input type="text" formControlName="ciudad" class="form-input">
-                </div>
-                <div class="form-group">
-                  <label>Dirección</label>
-                  <input type="text" formControlName="direccion" class="form-input">
-                </div>
-                <div class="botones-edicion">
-                  <button type="submit" class="btn-guardar">Guardar Cambios</button>
-                  <button type="button" class="btn-cancelar" (click)="cancelarEdicion()">Cancelar</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-
-        <!-- Tab de Pedidos -->
-        <div *ngIf="tabActiva === 'pedidos'" class="tab-content">
-          <div class="pedidos-section">
-            <h2>Mis Pedidos</h2>
-            
-            <div *ngIf="pedidos.length === 0" class="sin-pedidos">
-              <p>No tienes pedidos aún</p>
-              <button class="btn-ir-menu" routerLink="/">Ir al Menú</button>
-            </div>
-
-            <div *ngIf="pedidos.length > 0" class="pedidos-lista">
-              <div *ngFor="let pedido of pedidos" class="pedido-card">
-                <div class="pedido-header">
-                  <div class="pedido-info">
-                    <span class="pedido-id">Pedido #{{ pedido.id }}</span>
-                    <span class="pedido-fecha">{{ pedido.fecha }}</span>
-                  </div>
-                  <span 
-                    [class.estado-entregado]="pedido.estado === 'Entregado'"
-                    [class.estado-preparacion]="pedido.estado === 'En Preparación'"
-                    class="pedido-estado"
-                  >
-                    {{ pedido.estado }}
-                  </span>
-                </div>
-
-                <div class="pedido-items">
-                  <div *ngFor="let item of pedido.items" class="item">
-                    <span class="item-nombre">{{ item.nombre }}</span>
-                    <span class="item-cantidad">x{{ item.cantidad }}</span>
-                    <span class="item-precio">\${{ (item.precio).toFixed(2) }}</span>
-                  </div>
-                </div>
-
-                <div class="pedido-total">
-                  <span class="label">Total:</span>
-                  <span class="monto">\${{ (pedido.total).toFixed(2) }}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <button class="btn-volver" routerLink="/">Volver al Menú</button>
+>>>>>>> 006df0d85ef822523f19efaaa1263df948bf8969
       </div>
     </div>
   `,
@@ -611,103 +520,20 @@ import { takeUntil } from 'rxjs/operators';
     }
   `]
 })
-export class CuentaComponent implements OnInit, OnDestroy {
-  usuarioActual: User | null = null;
-  pedidos: Pedido[] = [];
-  tabActiva: 'perfil' | 'pedidos' = 'perfil';
-  editandoPerfil = false;
-  perfilForm: FormGroup;
-  private destroy$ = new Subject<void>();
+export class CuentaComponent {
+  usuario: Usuario = {
+    nombre: 'Juan Pérez',
+    correo: 'juan.perez@email.com'
+  };
 
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private fb: FormBuilder
-  ) {
-    this.perfilForm = this.fb.group({
-      nombre: ['', Validators.required],
-      telefono: [''],
-      ciudad: ['', Validators.required],
-      direccion: ['', Validators.required]
-    });
-  }
+  historialPedidos: Pedido[] = [
+    { id: 101, fecha: '2025-11-01', estado: 'Entregado' },
+    { id: 102, fecha: '2025-11-10', estado: 'En camino' }
+  ];
 
-  ngOnInit(): void {
-    // Verificar si el usuario está autenticado
-    if (!this.authService.estaAutenticado()) {
-      this.router.navigate(['/login']);
-      return;
-    }
+  guardarCambios() {
+    // Aquí iría la lógica para guardar los cambios del usuario
+    alert('Datos actualizados correctamente');
 
-    // Suscribirse al usuario actual
-    this.authService.usuario$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(usuario => {
-        this.usuarioActual = usuario;
-        if (usuario && this.editandoPerfil) {
-          this.perfilForm.patchValue(usuario);
-        }
-      });
-
-    // Suscribirse a los pedidos
-    this.authService.pedidos$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(pedidos => {
-        this.pedidos = pedidos;
-      });
-
-    // Cargar datos iniciales
-    this.usuarioActual = this.authService.obtenerUsuarioActual();
-    this.pedidos = this.authService.obtenerPedidos();
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
-  cambiarTab(tab: 'perfil' | 'pedidos'): void {
-    this.tabActiva = tab;
-  }
-
-  iniciarEdicion(): void {
-    if (this.usuarioActual) {
-      this.editandoPerfil = true;
-      this.perfilForm.patchValue(this.usuarioActual);
-    }
-  }
-
-  cancelarEdicion(): void {
-    this.editandoPerfil = false;
-    this.perfilForm.reset();
-  }
-
-  guardarCambios(): void {
-    if (this.perfilForm.invalid || !this.usuarioActual) return;
-
-    const datosActualizados: User = {
-      ...this.usuarioActual,
-      ...this.perfilForm.value
-    };
-
-    this.authService.actualizarPerfil(datosActualizados).subscribe({
-      next: (exito) => {
-        if (exito) {
-          this.editandoPerfil = false;
-          this.usuarioActual = datosActualizados;
-          alert('Perfil actualizado correctamente');
-        }
-      },
-      error: () => {
-        alert('Error al actualizar el perfil');
-      }
-    });
-  }
-
-  cerrarSesion(): void {
-    if (confirm('¿Deseas cerrar sesión?')) {
-      this.authService.logout();
-      this.router.navigate(['/login']);
-    }
   }
 }
