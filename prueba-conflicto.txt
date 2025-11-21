@@ -1,1 +1,1 @@
-Esta es la versión A del archivo para simular un conflicto.
+Esta es la versión final después de resolver el conflicto.
