@@ -4,9 +4,11 @@ import { PlatoDetalleComponent } from './components/plato-detalle/plato-detalle.
 import { CarritoComponent } from './components/carrito/carrito.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { CuentaComponent } from './components/cuenta/cuenta.component';
+import { LoginComponent } from './components/login/login.component';
 
 export const routes: Routes = [
   { path: '', component: PlatosComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'plato/:id', component: PlatoDetalleComponent },
   { path: 'carrito', component: CarritoComponent },
   { path: 'checkout', component: CheckoutComponent },

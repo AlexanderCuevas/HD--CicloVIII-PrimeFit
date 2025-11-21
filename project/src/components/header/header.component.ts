@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CarritoService } from '../../services/carrito.service';
+import { AuthService } from '../../services/auth.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
@@ -20,7 +23,17 @@ import { CarritoService } from '../../services/carrito.service';
             Carrito
             <span class="cart-badge" *ngIf="totalItems > 0">{{ totalItems }}</span>
           </a>
-          <a routerLink="/cuenta" routerLinkActive="active">Cuenta</a>
+          
+          <!-- Si está autenticado -->
+          <div *ngIf="usuarioAutenticado" class="user-menu">
+            <span class="usuario-nombre">👤 {{ nombreUsuario }}</span>
+            <a routerLink="/cuenta" routerLinkActive="active">Mi Cuenta</a>
+          </div>
+
+          <!-- Si no está autenticado -->
+          <a *ngIf="!usuarioAutenticado" routerLink="/login" routerLinkActive="active" class="btn-login">
+            Iniciar Sesión
+          </a>
         </nav>
       </div>
     </header>
@@ -97,6 +110,31 @@ import { CarritoService } from '../../services/carrito.service';
       font-weight: 600;
     }
 
+    .user-menu {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .usuario-nombre {
+      color: #2d3748;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .btn-login {
+      background: linear-gradient(135deg, #1e3a8a 0%, #065f46 100%);
+      color: white !important;
+      padding: 0.75rem 1.5rem !important;
+      border-radius: 8px !important;
+      font-weight: 600 !important;
+    }
+
+    .btn-login:hover {
+      background: linear-gradient(135deg, #1a2f70 0%, #054d37 100%) !important;
+      color: white !important;
+    }
+
     @media (max-width: 768px) {
       .container {
         padding: 1rem;
@@ -110,17 +148,45 @@ import { CarritoService } from '../../services/carrito.service';
         padding: 0.5rem;
         font-size: 0.9rem;
       }
+
+      .usuario-nombre {
+        display: none;
+      }
+
+      .user-menu {
+        gap: 0.5rem;
+      }
     }
   `]
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   totalItems = 0;
+  usuarioAutenticado = false;
+  nombreUsuario = '';
+  private destroy$ = new Subject<void>();
 
-  constructor(private carritoService: CarritoService) {}
+  constructor(
+    private carritoService: CarritoService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.carritoService.getItems().subscribe(() => {
       this.totalItems = this.carritoService.getTotalItems();
     });
+
+    // Verificar estado de autenticación
+    this.authService.usuario$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(usuario => {
+        this.usuarioAutenticado = usuario !== null;
+        this.nombreUsuario = usuario?.nombre ? usuario.nombre.split(' ')[0] : '';
+      });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
+
