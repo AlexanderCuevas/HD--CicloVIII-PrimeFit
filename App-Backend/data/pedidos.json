@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "usuarioId": 4,
+    "items": [
+      {
+        "id": "1765473494725",
+        "platoId": 2,
+        "nombre": "Smoothie Bowl Açaí",
+        "precio": 35,
+        "cantidad": 1,
+        "imagen": "https://www.joyousapron.com/wp-content/uploads/2020/05/acai-smoothie-bowl-sq-1.jpg",
+        "restauranteNombre": "FitGreen"
+      }
+    ],
+    "subtotal": 35,
+    "costoEnvio": 5.99,
+    "total": 47.29,
+    "direccionEntrega": "Av. Aviación 2160",
+    "estado": "pendiente",
+    "fechaPedido": "2025-12-11T17:49:05.169Z",
+    "fechaActualizacion": "2025-12-11T17:49:05.169Z"
+  }
+]

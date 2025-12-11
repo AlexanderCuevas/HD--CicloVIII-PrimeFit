@@ -1,102 +1,97 @@
-import User from '../Model/User.js';
-import { readFileSync, writeFileSync, existsSync } from 'fs';
-import { fileURLToPath } from 'url';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import fs from 'fs';
 import path from 'path';
-// Try to load bcryptjs; if not installed, fallback to a light-weight implementation using crypto
-let bcrypt = null;
-try {
-  // top-level await is supported in Node ESM
-  bcrypt = (await import('bcryptjs')).default;
-} catch (err) {
-  const crypto = await import('crypto');
-  // fallback: use pbkdf2 with a random salt, store as salt$hash
-  bcrypt = {
-    genSaltSync: () => Math.random().toString(36).slice(2, 10),
-    hashSync: (pwd, salt) => {
-      const h = crypto.pbkdf2Sync(pwd, salt, 100000, 64, 'sha512');
-      return `${salt}$${h.toString('hex')}`;
-    },
-    compareSync: (pwd, full) => {
-      if (!full || typeof full !== 'string') return false;
-      const parts = full.split('$');
-      if (parts.length !== 2) return false;
-      const [salt, hash] = parts;
-      const h = crypto.pbkdf2Sync(pwd, salt, 100000, 64, 'sha512').toString('hex');
-      return h === hash;
-    }
-  };
-}
+import { fileURLToPath } from 'url';
+import User from '../Model/User.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const DATA_FILE = path.join(__dirname, '..', 'data', 'users.json');
+const USERS_FILE = path.join(__dirname, '../data/users.json');
 
-const users = [];
-
-function guardarEnArchivo() {
+// Cargar usuarios del archivo
+function loadUsers() {
   try {
-    writeFileSync(DATA_FILE, JSON.stringify(users, null, 2), 'utf8');
-  } catch (err) {
-    console.error('Error al guardar users.json:', err.message);
+    const data = fs.readFileSync(USERS_FILE, 'utf8');
+    const users = JSON.parse(data);
+    return users.map(u => new User(u));
+  } catch (error) {
+    return [];
   }
 }
 
-function cargarDesdeArchivo() {
+// Guardar usuarios al archivo
+function saveUsers(users) {
+  fs.writeFileSync(USERS_FILE, JSON.stringify(users.map(u => u.toJSON()), null, 2));
+}
+
+let users = loadUsers();
+
+// Crear usuario
+export async function registrarUsuario(userData) {
+  // Verificar si el usuario ya existe
+  if (users.find(u => u.username === userData.username || u.email === userData.email)) {
+    throw new Error('El usuario o email ya existe');
+  }
+
+  // Hash del password
+  const hashedPassword = await bcrypt.hash(userData.password, 10);
+  
+  const nuevoUsuario = new User({
+    id: users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1,
+    ...userData,
+    password: hashedPassword
+  });
+
+  users.push(nuevoUsuario);
+  saveUsers(users);
+
+  return nuevoUsuario.toSafeJSON();
+}
+
+// Autenticar usuario
+export async function autenticarUsuario(username, password) {
+  const user = users.find(u => u.username === username || u.email === username);
+  
+  if (!user) {
+    throw new Error('Usuario no encontrado');
+  }
+
+  const isValid = await bcrypt.compare(password, user.password);
+  
+  if (!isValid) {
+    throw new Error('Contraseña incorrecta');
+  }
+
+  // Generar token JWT
+  const token = jwt.sign(
+    { id: user.id, username: user.username, role: user.role },
+    process.env.JWT_SECRET,
+    { expiresIn: '24h' }
+  );
+
+  return {
+    token,
+    user: user.toSafeJSON()
+  };
+}
+
+// Verificar token
+export function verificarToken(token) {
   try {
-    if (!existsSync(DATA_FILE)) {
-      // crear archivo vacío más adelante al guardar
-      return;
-    }
-    const raw = readFileSync(DATA_FILE, 'utf8');
-    const arr = JSON.parse(raw || '[]');
-    arr.forEach(u => users.push(new User(u)));
-  } catch (err) {
-    console.error('Error al cargar users.json:', err.message);
+    return jwt.verify(token, process.env.JWT_SECRET);
+  } catch (error) {
+    throw new Error('Token inválido o expirado');
   }
 }
 
-// inicializar
-cargarDesdeArchivo();
+// Obtener usuario por ID
+export function obtenerUsuarioPorId(id) {
+  const user = users.find(u => u.id === id);
+  return user ? user.toSafeJSON() : null;
+}
 
-// Helper: crear usuario (hash password)
-export const crearUsuario = ({ username, password, role = 'user' }) => {
-  if (!username || !password) throw new Error('username y password son requeridos');
-  if (users.find(u => u.username === username)) throw new Error('Usuario ya existe');
-  const salt = bcrypt.genSaltSync(10);
-  const hash = bcrypt.hashSync(password, salt);
-  const u = new User({ username, passwordHash: hash, role });
-  users.push(u);
-  guardarEnArchivo();
-  return { username: u.username, role: u.role };
-};
-
-export const autenticar = ({ username, password }) => {
-  const u = users.find(x => x.username === username);
-  if (!u) return null;
-  const ok = bcrypt.compareSync(password, u.passwordHash);
-  if (!ok) return null;
-  // devolver una copia sin passwordHash
-  return { username: u.username, role: u.role };
-};
-
-export const getUsuario = (username) => {
-  const u = users.find(x => x.username === username);
-  if (!u) return null;
-  return { username: u.username, role: u.role };
-};
-
-// helper: ensure default users (admin/user) exist
-export const ensureDefaultUsers = () => {
-  if (users.length === 0) {
-    try {
-      crearUsuario({ username: 'admin', password: 'admin', role: 'admin' });
-      crearUsuario({ username: 'user', password: 'user', role: 'user' });
-      console.log('Usuarios por defecto creados: admin/admin, user/user');
-    } catch (err) {
-      // ignore if exist
-    }
-  }
-};
-
-// expose for tests
-export const _listUsers = () => users.map(u => ({ username: u.username, role: u.role }));
+// Obtener todos los usuarios (solo admin)
+export function obtenerTodosLosUsuarios() {
+  return users.map(u => u.toSafeJSON());
+}

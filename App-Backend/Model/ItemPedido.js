@@ -1,22 +1,30 @@
-// ItemPedido: referencia a un plato + cantidad + subtotales
-export default class ItemPedido {
-  constructor(plato, cantidad) {
-    if (!plato) throw new Error('plato requerido');
-    this.plato = plato;
-    this.cantidad = Number(cantidad) || 0;
-    if (this.cantidad <= 0) throw new Error('cantidad inválida');
+class ItemPedido {
+  constructor({ platoId, restauranteId, nombre, precio, cantidad, imagen, macros }) {
+    this.platoId = platoId;
+    this.restauranteId = restauranteId;
+    this.nombre = nombre;
+    this.precio = precio;
+    this.cantidad = cantidad;
+    this.imagen = imagen;
+    this.macros = macros;
   }
 
-  get subtotalPrecio() {
-    return Number((this.plato.precio * this.cantidad).toFixed(2));
+  getSubtotal() {
+    return this.precio * this.cantidad;
   }
 
-  get subtotalMacros() {
+  toJSON() {
     return {
-      kcal: this.plato.kcal * this.cantidad,
-      prote: this.plato.prote * this.cantidad,
-      carb: this.plato.carb * this.cantidad,
-      grasa: this.plato.grasa * this.cantidad,
+      platoId: this.platoId,
+      restauranteId: this.restauranteId,
+      nombre: this.nombre,
+      precio: this.precio,
+      cantidad: this.cantidad,
+      imagen: this.imagen,
+      macros: this.macros,
+      subtotal: this.getSubtotal()
     };
   }
 }
+
+export default ItemPedido;

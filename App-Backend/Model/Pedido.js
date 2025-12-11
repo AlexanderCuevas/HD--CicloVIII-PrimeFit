@@ -1,24 +1,41 @@
-export default class Pedido {
-  constructor({ id, cliente, items = [], fecha = new Date() }) {
-    // id será asignado por el servicio de pedidos (contador secuencial)
-    this.id = id ?? null;
-    this.cliente = cliente || 'Cliente';
-    this.items = items; // array de ItemPedido
-    this.fecha = new Date(fecha);
+class Pedido {
+  constructor({ id, usuarioId, items, subtotal, costoEnvio, total, direccionEntrega, estado = 'pendiente' }) {
+    this.id = id;
+    this.usuarioId = usuarioId;
+    this.items = items; // Array de ItemPedido
+    this.subtotal = subtotal;
+    this.costoEnvio = costoEnvio || 0;
+    this.total = total;
+    this.direccionEntrega = direccionEntrega;
+    this.estado = estado; // "pendiente", "confirmado", "preparando", "en_camino", "entregado", "cancelado"
+    this.fechaPedido = new Date();
+    this.fechaActualizacion = new Date();
   }
 
-  totalPrecio() {
-    return this.items.reduce((s, it) => s + it.subtotalPrecio, 0);
+  actualizarEstado(nuevoEstado) {
+    this.estado = nuevoEstado;
+    this.fechaActualizacion = new Date();
   }
 
-  totalMacros() {
-    return this.items.reduce((acc, it) => {
-      const m = it.subtotalMacros;
-      acc.kcal += m.kcal;
-      acc.prote += m.prote;
-      acc.carb += m.carb;
-      acc.grasa += m.grasa;
-      return acc;
-    }, { kcal: 0, prote: 0, carb: 0, grasa: 0 });
+  calcularTotal() {
+    this.subtotal = this.items.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+    this.total = this.subtotal + this.costoEnvio;
+  }
+
+  toJSON() {
+    return {
+      id: this.id,
+      usuarioId: this.usuarioId,
+      items: this.items,
+      subtotal: this.subtotal,
+      costoEnvio: this.costoEnvio,
+      total: this.total,
+      direccionEntrega: this.direccionEntrega,
+      estado: this.estado,
+      fechaPedido: this.fechaPedido,
+      fechaActualizacion: this.fechaActualizacion
+    };
   }
 }
+
+export default Pedido;

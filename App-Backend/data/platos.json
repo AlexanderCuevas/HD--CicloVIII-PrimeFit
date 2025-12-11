@@ -1,74 +1,1345 @@
 [
   {
     "id": 1,
-    "nombre": "Ensalada César",
-    "kcal": 250,
-    "prote": 8,
-    "carb": 10,
-    "grasa": 18,
-    "precio": 12.5
+    "restauranteId": 1,
+    "nombre": "Buddha Bowl Vegano",
+    "descripcion": "Quinoa, garbanzos, aguacate, kale, zanahoria, hummus de remolacha",
+    "precio": 42.00,
+    "imagen": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 450,
+      "proteinas": 18,
+      "carbohidratos": 52,
+      "grasas": 16
+    },
+    "tags": ["vegano", "sin gluten", "alto en fibra"],
+    "disponible": true
   },
   {
     "id": 2,
-    "nombre": "Pechuga a la plancha",
-    "kcal": 200,
-    "prote": 30,
-    "carb": 0,
-    "grasa": 5,
-    "precio": 18
+    "restauranteId": 1,
+    "nombre": "Smoothie Bowl Açaí",
+    "descripcion": "Açaí, plátano, fresas, granola casera, coco rallado, miel de agave",
+    "precio": 35.00,
+    "imagen": "https://www.joyousapron.com/wp-content/uploads/2020/05/acai-smoothie-bowl-sq-1.jpg",
+    "categoria": "Desayuno",
+    "macros": {
+      "calorias": 320,
+      "proteinas": 8,
+      "carbohidratos": 58,
+      "grasas": 9
+    },
+    "tags": ["vegano", "antioxidantes", "energético"],
+    "disponible": true
   },
   {
     "id": 3,
-    "nombre": "Salmón al horno",
-    "kcal": 320,
-    "prote": 25,
-    "carb": 2,
-    "grasa": 22,
-    "precio": 22
+    "restauranteId": 1,
+    "nombre": "Tacos de Jackfruit",
+    "descripcion": "Jackfruit marinado, tortilla de maíz, pico de gallo, guacamole, cilantro",
+    "precio": 38.00,
+    "imagen": "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 380,
+      "proteinas": 12,
+      "carbohidratos": 48,
+      "grasas": 14
+    },
+    "tags": ["vegano", "mexicano", "sin gluten"],
+    "disponible": true
   },
   {
     "id": 4,
-    "nombre": "Avena con frutas",
-    "kcal": 180,
-    "prote": 6,
-    "carb": 32,
-    "grasa": 3,
-    "precio": 7.5
+    "restauranteId": 1,
+    "nombre": "Wrap de Falafel",
+    "descripcion": "Falafel casero, hummus, pepino, tomate, lechuga, salsa tahini",
+    "precio": 36.00,
+    "imagen": "https://images.unsplash.com/photo-1592861956120-e524fc739696?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 420,
+      "proteinas": 16,
+      "carbohidratos": 50,
+      "grasas": 18
+    },
+    "tags": ["vegano", "mediterráneo", "proteína vegetal"],
+    "disponible": true
   },
   {
     "id": 5,
-    "nombre": "Yogur con granola",
-    "kcal": 220,
-    "prote": 10,
-    "carb": 28,
-    "grasa": 6,
-    "precio": 8
+    "restauranteId": 2,
+    "nombre": "Pollo Teriyaki con Arroz Integral",
+    "descripcion": "Pechuga de pollo a la plancha, arroz integral, brócoli, salsa teriyaki casera",
+    "precio": 55.00,
+    "imagen": "https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 520,
+      "proteinas": 48,
+      "carbohidratos": 55,
+      "grasas": 8
+    },
+    "tags": ["alto en proteína", "bajo en grasa"],
+    "disponible": true
   },
   {
     "id": 6,
-    "nombre": "Bowl de quinoa",
-    "kcal": 270,
-    "prote": 9,
-    "carb": 40,
-    "grasa": 5,
-    "precio": 13
+    "restauranteId": 2,
+    "nombre": "Protein Pancakes",
+    "descripcion": "Hotcakes de proteína de suero, frutos rojos, miel de maple sin azúcar",
+    "precio": 38.00,
+    "imagen": "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400",
+    "categoria": "Desayuno",
+    "macros": {
+      "calorias": 380,
+      "proteinas": 35,
+      "carbohidratos": 42,
+      "grasas": 6
+    },
+    "tags": ["alto en proteína", "pre-workout"],
+    "disponible": true
   },
   {
     "id": 7,
-    "nombre": "Tortilla de espinacas",
-    "kcal": 150,
-    "prote": 12,
-    "carb": 4,
-    "grasa": 9,
-    "precio": 9.5
+    "restauranteId": 2,
+    "nombre": "Bistec con Camote",
+    "descripcion": "Lomo fino a la parrilla, camote asado, espárragos, chimichurri",
+    "precio": 68.00,
+    "imagen": "https://images.unsplash.com/photo-1600891964092-4316c288032e?w=400",
+    "categoria": "Cena",
+    "macros": {
+      "calorias": 580,
+      "proteinas": 52,
+      "carbohidratos": 45,
+      "grasas": 18
+    },
+    "tags": ["alto en proteína", "post-workout", "muscle building"],
+    "disponible": true
   },
   {
     "id": 8,
-    "nombre": "Ensalada",
-    "kcal": 150,
-    "prote": 5,
-    "carb": 10,
-    "grasa": 8,
-    "precio": 12.5
+    "restauranteId": 2,
+    "nombre": "Wrap de Pavo y Aguacate",
+    "descripcion": "Pechuga de pavo, aguacate, lechuga, tomate, tortilla integral",
+    "precio": 42.00,
+    "imagen": "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 450,
+      "proteinas": 38,
+      "carbohidratos": 35,
+      "grasas": 16
+    },
+    "tags": ["alto en proteína", "bajo en carbos"],
+    "disponible": true
+  },
+  {
+    "id": 9,
+    "restauranteId": 2,
+    "nombre": "Batido Proteico Chocolate",
+    "descripcion": "Proteína whey chocolate, plátano, mantequilla de maní, leche de almendras",
+    "precio": 28.00,
+    "imagen": "https://images.unsplash.com/photo-1579722821273-0f6c7d44362f?w=400",
+    "categoria": "Snack",
+    "macros": {
+      "calorias": 320,
+      "proteinas": 30,
+      "carbohidratos": 25,
+      "grasas": 8
+    },
+    "tags": ["post-workout", "batido", "chocolate"],
+    "disponible": true
+  },
+  {
+    "id": 10,
+    "restauranteId": 3,
+    "nombre": "Salmón Keto con Aguacate",
+    "descripcion": "Filete de salmón a la plancha, aguacate, espinaca salteada, limón",
+    "precio": 72.00,
+    "imagen": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 580,
+      "proteinas": 42,
+      "carbohidratos": 8,
+      "grasas": 42
+    },
+    "tags": ["keto", "omega-3", "bajo en carbos"],
+    "disponible": true
+  },
+  {
+    "id": 11,
+    "restauranteId": 3,
+    "nombre": "Huevos Revueltos con Tocino",
+    "descripcion": "3 huevos revueltos, tocino ahumado, aguacate, queso cheddar",
+    "precio": 38.00,
+    "imagen": "https://images.unsplash.com/photo-1525351484163-7529414344d8?w=400",
+    "categoria": "Desayuno",
+    "macros": {
+      "calorias": 520,
+      "proteinas": 35,
+      "carbohidratos": 5,
+      "grasas": 40
+    },
+    "tags": ["keto", "desayuno", "alto en grasas"],
+    "disponible": true
+  },
+  {
+    "id": 12,
+    "restauranteId": 3,
+    "nombre": "Ensalada César Keto",
+    "descripcion": "Pollo a la parrilla, lechuga romana, parmesano, aderezo césar keto",
+    "precio": 45.00,
+    "imagen": "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 480,
+      "proteinas": 38,
+      "carbohidratos": 6,
+      "grasas": 34
+    },
+    "tags": ["keto", "ensalada", "sin carbos"],
+    "disponible": true
+  },
+  {
+    "id": 13,
+    "restauranteId": 3,
+    "nombre": "Coliflor Buffalo Wings",
+    "descripcion": "Coliflor empanizada keto, salsa buffalo, aderezo ranch bajo en carbos",
+    "precio": 32.00,
+    "imagen": "https://images.unsplash.com/photo-1527477396000-e27163b481c2?w=400",
+    "categoria": "Snack",
+    "macros": {
+      "calorias": 280,
+      "proteinas": 12,
+      "carbohidratos": 10,
+      "grasas": 22
+    },
+    "tags": ["keto", "vegetariano", "snack"],
+    "disponible": true
+  },
+  {
+    "id": 14,
+    "restauranteId": 4,
+    "nombre": "Power Bowl Mediterráneo",
+    "descripcion": "Quinoa, pollo, aceitunas, pepino, tomate, hummus, tzatziki",
+    "precio": 48.00,
+    "imagen": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 520,
+      "proteinas": 32,
+      "carbohidratos": 48,
+      "grasas": 20
+    },
+    "tags": ["balanced", "mediterráneo", "bowl"],
+    "disponible": true
+  },
+  {
+    "id": 15,
+    "restauranteId": 4,
+    "nombre": "Bowl Tex-Mex",
+    "descripcion": "Arroz integral, frijoles negros, pollo, pico de gallo, guacamole, maíz",
+    "precio": 46.00,
+    "imagen": "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 540,
+      "proteinas": 35,
+      "carbohidratos": 58,
+      "grasas": 16
+    },
+    "tags": ["balanced", "mexicano", "bowl"],
+    "disponible": true
+  },
+  {
+    "id": 16,
+    "restauranteId": 4,
+    "nombre": "Bowl Asiático",
+    "descripcion": "Arroz jazmín, salmón teriyaki, edamame, zanahoria, pepino, sésamo",
+    "precio": 52.00,
+    "imagen": "https://images.unsplash.com/photo-1546833998-877b37c2e5c6?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 560,
+      "proteinas": 38,
+      "carbohidratos": 52,
+      "grasas": 18
+    },
+    "tags": ["balanced", "asiático", "omega-3"],
+    "disponible": true
+  },
+  {
+    "id": 17,
+    "restauranteId": 4,
+    "nombre": "Bowl de Quinoa y Atún",
+    "descripcion": "Quinoa, atún fresco, aguacate, rúcula, tomate cherry, vinagreta",
+    "precio": 50.00,
+    "imagen": "https://images.unsplash.com/photo-1559847844-5315695dadae?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 510,
+      "proteinas": 36,
+      "carbohidratos": 45,
+      "grasas": 18
+    },
+    "tags": ["balanced", "pescado", "alto en proteína"],
+    "disponible": true
+  },
+  {
+    "id": 18,
+    "restauranteId": 5,
+    "nombre": "Ensalada de Pollo Light",
+    "descripcion": "Pollo a la plancha, lechuga, tomate, pepino, aderezo balsámico light",
+    "precio": 35.00,
+    "imagen": "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 280,
+      "proteinas": 32,
+      "carbohidratos": 15,
+      "grasas": 8
+    },
+    "tags": ["low calorie", "ensalada", "light"],
+    "disponible": true
+  },
+  {
+    "id": 19,
+    "restauranteId": 5,
+    "nombre": "Wraps de Lechuga con Pollo",
+    "descripcion": "Pollo molido, lechuga mantequilla, zanahoria, pepino, salsa de soya",
+    "precio": 32.00,
+    "imagen": "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 220,
+      "proteinas": 28,
+      "carbohidratos": 8,
+      "grasas": 8
+    },
+    "tags": ["low calorie", "sin carbos", "light"],
+    "disponible": true
+  },
+  {
+    "id": 20,
+    "restauranteId": 5,
+    "nombre": "Sopa de Verduras Detox",
+    "descripcion": "Caldo de verduras, espinaca, apio, zanahoria, calabacín, especias",
+    "precio": 25.00,
+    "imagen": "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 150,
+      "proteinas": 6,
+      "carbohidratos": 22,
+      "grasas": 3
+    },
+    "tags": ["low calorie", "detox", "vegano"],
+    "disponible": true
+  },
+  {
+    "id": 21,
+    "restauranteId": 5,
+    "nombre": "Yogurt Griego con Berries",
+    "descripcion": "Yogurt griego 0% grasa, fresas, arándanos, almendras",
+    "precio": 22.00,
+    "imagen": "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400",
+    "categoria": "Desayuno",
+    "macros": {
+      "calorias": 180,
+      "proteinas": 18,
+      "carbohidratos": 20,
+      "grasas": 2
+    },
+    "tags": ["low calorie", "desayuno", "proteína"],
+    "disponible": true
+  },
+  {
+    "id": 22,
+    "restauranteId": 6,
+    "nombre": "Pollo Asado Paleo",
+    "descripcion": "Pollo orgánico asado, batata, col rizada, hierbas frescas",
+    "precio": 58.00,
+    "imagen": "https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 480,
+      "proteinas": 42,
+      "carbohidratos": 35,
+      "grasas": 16
+    },
+    "tags": ["paleo", "sin granos", "natural"],
+    "disponible": true
+  },
+  {
+    "id": 23,
+    "restauranteId": 6,
+    "nombre": "Carne de Res Grass-Fed",
+    "descripcion": "Bife de res alimentada con pasto, vegetales asados, aceite de oliva",
+    "precio": 75.00,
+    "imagen": "https://images.unsplash.com/photo-1588168333986-5078d3ae3976?w=400",
+    "categoria": "Cena",
+    "macros": {
+      "calorias": 550,
+      "proteinas": 48,
+      "carbohidratos": 18,
+      "grasas": 32
+    },
+    "tags": ["paleo", "grass-fed", "premium"],
+    "disponible": true
+  },
+  {
+    "id": 24,
+    "restauranteId": 6,
+    "nombre": "Huevos con Vegetales Paleo",
+    "descripcion": "3 huevos orgánicos, espinaca, champiñones, tomate, aguacate",
+    "precio": 35.00,
+    "imagen": "https://images.unsplash.com/photo-1525351484163-7529414344d8?w=400",
+    "categoria": "Desayuno",
+    "macros": {
+      "calorias": 380,
+      "proteinas": 24,
+      "carbohidratos": 12,
+      "grasas": 26
+    },
+    "tags": ["paleo", "desayuno", "natural"],
+    "disponible": true
+  },
+  {
+    "id": 25,
+    "restauranteId": 6,
+    "nombre": "Ensalada de Frutas del Bosque",
+    "descripcion": "Fresas, arándanos, frambuesas, nueces, miel cruda",
+    "precio": 28.00,
+    "imagen": "https://images.unsplash.com/photo-1564093749866-5c8d53bbb5e9?w=400",
+    "categoria": "Postre",
+    "macros": {
+      "calorias": 220,
+      "proteinas": 4,
+      "carbohidratos": 35,
+      "grasas": 8
+    },
+    "tags": ["paleo", "postre", "antioxidantes"],
+    "disponible": true
+  },
+  {
+    "id": 26,
+    "restauranteId": 7,
+    "nombre": "Green Detox Smoothie",
+    "descripcion": "Espinaca, pepino, apio, manzana verde, jengibre, limón",
+    "precio": 22.00,
+    "imagen": "https://images.unsplash.com/photo-1610970881699-44a5587cabec?w=400",
+    "categoria": "Bebida",
+    "macros": {
+      "calorias": 120,
+      "proteinas": 3,
+      "carbohidratos": 28,
+      "grasas": 1
+    },
+    "tags": ["detox", "verde", "antioxidante"],
+    "disponible": true
+  },
+  {
+    "id": 27,
+    "restauranteId": 7,
+    "nombre": "Tropical Paradise Smoothie",
+    "descripcion": "Mango, piña, coco, espinaca, leche de coco",
+    "precio": 24.00,
+    "imagen": "https://images.unsplash.com/photo-1505252585461-04db1eb84625?w=400",
+    "categoria": "Bebida",
+    "macros": {
+      "calorias": 240,
+      "proteinas": 4,
+      "carbohidratos": 45,
+      "grasas": 6
+    },
+    "tags": ["tropical", "energizante", "vegano"],
+    "disponible": true
+  },
+  {
+    "id": 28,
+    "restauranteId": 7,
+    "nombre": "Açaí Bowl Clásico",
+    "descripcion": "Base de açaí, granola, plátano, fresa, coco, miel",
+    "precio": 32.00,
+    "imagen": "https://images.unsplash.com/photo-1590301157890-4810ed352733?w=400",
+    "categoria": "Desayuno",
+    "macros": {
+      "calorias": 340,
+      "proteinas": 8,
+      "carbohidratos": 58,
+      "grasas": 10
+    },
+    "tags": ["açaí", "bowl", "energético"],
+    "disponible": true
+  },
+  {
+    "id": 29,
+    "restauranteId": 7,
+    "nombre": "Jugo Verde Energía",
+    "descripcion": "Kale, pepino, apio, manzana, jengibre, limón",
+    "precio": 20.00,
+    "imagen": "https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=400",
+    "categoria": "Bebida",
+    "macros": {
+      "calorias": 90,
+      "proteinas": 2,
+      "carbohidratos": 22,
+      "grasas": 0
+    },
+    "tags": ["jugo", "detox", "energía"],
+    "disponible": true
+  },
+  {
+    "id": 30,
+    "restauranteId": 7,
+    "nombre": "Berry Blast Smoothie",
+    "descripcion": "Arándanos, fresas, frambuesas, proteína vegetal, leche de almendras",
+    "precio": 26.00,
+    "imagen": "https://images.unsplash.com/photo-1553530666-ba11a7da3888?w=400",
+    "categoria": "Bebida",
+    "macros": {
+      "calorias": 280,
+      "proteinas": 20,
+      "carbohidratos": 38,
+      "grasas": 4
+    },
+    "tags": ["berries", "proteína", "antioxidantes"],
+    "disponible": true
+  },
+  {
+    "id": 31,
+    "restauranteId": 8,
+    "nombre": "Salmón a la Parrilla Mediterráneo",
+    "descripcion": "Salmón fresco, aceite de oliva, limón, hierbas, ensalada griega",
+    "precio": 78.00,
+    "imagen": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=400",
+    "categoria": "Cena",
+    "macros": {
+      "calorias": 520,
+      "proteinas": 42,
+      "carbohidratos": 12,
+      "grasas": 35
+    },
+    "tags": ["mediterráneo", "omega-3", "pescado"],
+    "disponible": true
+  },
+  {
+    "id": 32,
+    "restauranteId": 8,
+    "nombre": "Moussaka Vegetariana",
+    "descripcion": "Berenjena, tomate, bechamel ligera, queso feta, orégano",
+    "precio": 45.00,
+    "imagen": "https://images.unsplash.com/photo-1601000938259-9e92002320b2?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 380,
+      "proteinas": 18,
+      "carbohidratos": 32,
+      "grasas": 20
+    },
+    "tags": ["mediterráneo", "vegetariano", "griego"],
+    "disponible": true
+  },
+  {
+    "id": 33,
+    "restauranteId": 8,
+    "nombre": "Ensalada Griega Clásica",
+    "descripcion": "Tomate, pepino, cebolla, aceitunas kalamata, queso feta, aceite de oliva",
+    "precio": 38.00,
+    "imagen": "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 320,
+      "proteinas": 12,
+      "carbohidratos": 15,
+      "grasas": 24
+    },
+    "tags": ["mediterráneo", "ensalada", "vegetariano"],
+    "disponible": true
+  },
+  {
+    "id": 34,
+    "restauranteId": 8,
+    "nombre": "Brochetas de Pollo Souvlaki",
+    "descripcion": "Pollo marinado, tzatziki, pita integral, ensalada",
+    "precio": 52.00,
+    "imagen": "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 480,
+      "proteinas": 38,
+      "carbohidratos": 35,
+      "grasas": 18
+    },
+    "tags": ["mediterráneo", "griego", "alto en proteína"],
+    "disponible": true
+  },
+  {
+    "id": 35,
+    "restauranteId": 8,
+    "nombre": "Pulpo a la Parrilla",
+    "descripcion": "Pulpo gallego, papas al oliva, pimentón, limón",
+    "precio": 85.00,
+    "imagen": "https://images.unsplash.com/photo-1599084993091-1cb5c0721cc6?w=400",
+    "categoria": "Cena",
+    "macros": {
+      "calorias": 420,
+      "proteinas": 45,
+      "carbohidratos": 28,
+      "grasas": 12
+    },
+    "tags": ["mediterráneo", "mariscos", "premium"],
+    "disponible": true
+  },
+  {
+    "id": 36,
+    "restauranteId": 9,
+    "nombre": "Ensalada César Fit",
+    "descripcion": "Lechuga romana, pollo, parmesano, crutones integrales, aderezo ligero",
+    "precio": 42.00,
+    "imagen": "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 360,
+      "proteinas": 32,
+      "carbohidratos": 25,
+      "grasas": 14
+    },
+    "tags": ["ensalada", "clásico", "alto en proteína"],
+    "disponible": true
+  },
+  {
+    "id": 37,
+    "restauranteId": 9,
+    "nombre": "Ensalada de Quinoa y Aguacate",
+    "descripcion": "Quinoa, aguacate, tomate cherry, rúcula, nueces, vinagreta",
+    "precio": 40.00,
+    "imagen": "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 420,
+      "proteinas": 12,
+      "carbohidratos": 38,
+      "grasas": 25
+    },
+    "tags": ["vegano", "quinoa", "grasas saludables"],
+    "disponible": true
+  },
+  {
+    "id": 38,
+    "restauranteId": 9,
+    "nombre": "Ensalada de Atún y Garbanzos",
+    "descripcion": "Atún fresco, garbanzos, tomate, pepino, cebolla morada, limón",
+    "precio": 45.00,
+    "imagen": "https://images.unsplash.com/photo-1546793665-c74683f339c1?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 380,
+      "proteinas": 35,
+      "carbohidratos": 32,
+      "grasas": 12
+    },
+    "tags": ["alto en proteína", "pescado", "fibra"],
+    "disponible": true
+  },
+  {
+    "id": 39,
+    "restauranteId": 9,
+    "nombre": "Ensalada de Kale y Manzana",
+    "descripcion": "Kale, manzana verde, nueces, arándanos secos, vinagreta de miel",
+    "precio": 38.00,
+    "imagen": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 280,
+      "proteinas": 8,
+      "carbohidratos": 35,
+      "grasas": 14
+    },
+    "tags": ["vegano", "superalimento", "antioxidantes"],
+    "disponible": true
+  },
+  {
+    "id": 40,
+    "restauranteId": 9,
+    "nombre": "Ensalada Cobb Saludable",
+    "descripcion": "Pollo, huevo, aguacate, tocino de pavo, tomate, queso azul ligero",
+    "precio": 48.00,
+    "imagen": "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 450,
+      "proteinas": 38,
+      "carbohidratos": 18,
+      "grasas": 26
+    },
+    "tags": ["completa", "alto en proteína", "gourmet"],
+    "disponible": true
+  },
+  {
+    "id": 41,
+    "restauranteId": 10,
+    "nombre": "Wok de Pollo y Vegetales",
+    "descripcion": "Pollo, brócoli, zanahoria, pimiento, salsa de soya baja en sodio",
+    "precio": 45.00,
+    "imagen": "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 380,
+      "proteinas": 35,
+      "carbohidratos": 32,
+      "grasas": 12
+    },
+    "tags": ["asiático", "wok", "bajo en grasa"],
+    "disponible": true
+  },
+  {
+    "id": 42,
+    "restauranteId": 10,
+    "nombre": "Poke Bowl de Atún",
+    "descripcion": "Atún fresco, arroz de sushi, edamame, aguacate, alga nori, sésamo",
+    "precio": 58.00,
+    "imagen": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 480,
+      "proteinas": 38,
+      "carbohidratos": 45,
+      "grasas": 16
+    },
+    "tags": ["poke", "pescado crudo", "hawaiano"],
+    "disponible": true
+  },
+  {
+    "id": 43,
+    "restauranteId": 10,
+    "nombre": "Sushi Roll Vegetariano",
+    "descripcion": "Aguacate, pepino, zanahoria, queso crema light, arroz integral",
+    "precio": 35.00,
+    "imagen": "https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 320,
+      "proteinas": 10,
+      "carbohidratos": 48,
+      "grasas": 10
+    },
+    "tags": ["sushi", "vegetariano", "japonés"],
+    "disponible": true
+  },
+  {
+    "id": 44,
+    "restauranteId": 10,
+    "nombre": "Ramen Fit de Pollo",
+    "descripcion": "Caldo de huesos, fideos konjac, pollo, huevo, vegetales, alga nori",
+    "precio": 42.00,
+    "imagen": "https://images.unsplash.com/photo-1623341214825-9f4f963727da?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 350,
+      "proteinas": 32,
+      "carbohidratos": 28,
+      "grasas": 12
+    },
+    "tags": ["ramen", "bajo en calorías", "reconfortante"],
+    "disponible": true
+  },
+  {
+    "id": 45,
+    "restauranteId": 10,
+    "nombre": "Spring Rolls Vietnamitas",
+    "descripcion": "Papel de arroz, camarones, vegetales frescos, salsa de maní ligera",
+    "precio": 32.00,
+    "imagen": "https://images.unsplash.com/photo-1594007654729-407eedc4be65?w=400",
+    "categoria": "Snack",
+    "macros": {
+      "calorias": 220,
+      "proteinas": 18,
+      "carbohidratos": 25,
+      "grasas": 6
+    },
+    "tags": ["vietnamita", "ligero", "fresco"],
+    "disponible": true
+  },
+  {
+    "id": 46,
+    "restauranteId": 1,
+    "nombre": "Pizza Vegana de Vegetales",
+    "descripcion": "Masa integral, queso vegano, champiñones, pimiento, espinaca, tomate",
+    "precio": 48.00,
+    "imagen": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400",
+    "categoria": "Cena",
+    "macros": {
+      "calorias": 420,
+      "proteinas": 14,
+      "carbohidratos": 58,
+      "grasas": 14
+    },
+    "tags": ["vegano", "pizza", "comfort food"],
+    "disponible": true
+  },
+  {
+    "id": 47,
+    "restauranteId": 2,
+    "nombre": "Lasaña de Pollo Fit",
+    "descripcion": "Pollo molido, pasta integral, bechamel proteica, espinaca, queso light",
+    "precio": 52.00,
+    "imagen": "https://images.unsplash.com/photo-1619895092538-128341789043?w=400",
+    "categoria": "Cena",
+    "macros": {
+      "calorias": 480,
+      "proteinas": 42,
+      "carbohidratos": 45,
+      "grasas": 12
+    },
+    "tags": ["alto en proteína", "comfort food", "italiano"],
+    "disponible": true
+  },
+  {
+    "id": 48,
+    "restauranteId": 3,
+    "nombre": "Hamburguesa Keto",
+    "descripcion": "Carne de res, queso cheddar, aguacate, tocino, lechuga (sin pan)",
+    "precio": 55.00,
+    "imagen": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400",
+    "categoria": "Cena",
+    "macros": {
+      "calorias": 580,
+      "proteinas": 42,
+      "carbohidratos": 6,
+      "grasas": 44
+    },
+    "tags": ["keto", "hamburguesa", "sin pan"],
+    "disponible": true
+  },
+  {
+    "id": 49,
+    "restauranteId": 4,
+    "nombre": "Bowl Hawaiano",
+    "descripcion": "Arroz integral, pollo teriyaki, piña, edamame, cebolla morada, sésamo",
+    "precio": 50.00,
+    "imagen": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 520,
+      "proteinas": 36,
+      "carbohidratos": 62,
+      "grasas": 12
+    },
+    "tags": ["balanced", "tropical", "dulce y salado"],
+    "disponible": true
+  },
+  {
+    "id": 50,
+    "restauranteId": 5,
+    "nombre": "Pechuga de Pavo al Horno",
+    "descripcion": "Pechuga de pavo, brócoli al vapor, zanahoria baby, especias",
+    "precio": 38.00,
+    "imagen": "https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=400",
+    "categoria": "Cena",
+    "macros": {
+      "calorias": 280,
+      "proteinas": 42,
+      "carbohidratos": 12,
+      "grasas": 6
+    },
+    "tags": ["low calorie", "alto en proteína", "simple"],
+    "disponible": true
+  },
+  {
+    "id": 51,
+    "restauranteId": 6,
+    "nombre": "Costillas BBQ Paleo",
+    "descripcion": "Costillas de cerdo, salsa BBQ sin azúcar, camote, ensalada coleslaw paleo",
+    "precio": 72.00,
+    "imagen": "https://images.unsplash.com/photo-1544025162-d76694265947?w=400",
+    "categoria": "Cena",
+    "macros": {
+      "calorias": 620,
+      "proteinas": 48,
+      "carbohidratos": 32,
+      "grasas": 35
+    },
+    "tags": ["paleo", "bbq", "indulgente"],
+    "disponible": true
+  },
+  {
+    "id": 52,
+    "restauranteId": 7,
+    "nombre": "Pitaya Bowl",
+    "descripcion": "Base de pitaya, granola, kiwi, mango, coco, semillas de chía",
+    "precio": 34.00,
+    "imagen": "https://images.unsplash.com/photo-1590301157890-4810ed352733?w=400",
+    "categoria": "Desayuno",
+    "macros": {
+      "calorias": 320,
+      "proteinas": 8,
+      "carbohidratos": 55,
+      "grasas": 9
+    },
+    "tags": ["pitaya", "bowl", "instagrameable"],
+    "disponible": true
+  },
+  {
+    "id": 53,
+    "restauranteId": 8,
+    "nombre": "Risotto de Champiñones Light",
+    "descripcion": "Arroz arborio, champiñones, vino blanco, parmesano, trufa",
+    "precio": 58.00,
+    "imagen": "https://images.unsplash.com/photo-1476124369491-f1a4598d494e?w=400",
+    "categoria": "Cena",
+    "macros": {
+      "calorias": 420,
+      "proteinas": 14,
+      "carbohidratos": 58,
+      "grasas": 12
+    },
+    "tags": ["italiano", "vegetariano", "gourmet"],
+    "disponible": true
+  },
+  {
+    "id": 54,
+    "restauranteId": 9,
+    "nombre": "Ensalada Rainbow",
+    "descripcion": "Mix de lechugas, remolacha, zanahoria, col morada, maíz, vinagreta",
+    "precio": 36.00,
+    "imagen": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 220,
+      "proteinas": 6,
+      "carbohidratos": 32,
+      "grasas": 8
+    },
+    "tags": ["vegano", "colorida", "antioxidantes"],
+    "disponible": true
+  },
+  {
+    "id": 55,
+    "restauranteId": 10,
+    "nombre": "Pad Thai Fit",
+    "descripcion": "Fideos de arroz, camarones, huevo, cacahuate, salsa tamarindo ligera",
+    "precio": 48.00,
+    "imagen": "https://images.unsplash.com/photo-1626804475297-41608ea09aeb?w=400",
+    "categoria": "Cena",
+    "macros": {
+      "calorias": 420,
+      "proteinas": 28,
+      "carbohidratos": 52,
+      "grasas": 10
+    },
+    "tags": ["tailandés", "wok", "bajo en grasa"],
+    "disponible": true
+  },
+  {
+    "id": 56,
+    "restauranteId": 11,
+    "nombre": "Ensalada César Fitness",
+    "descripcion": "Lechuga romana, pollo a la parrilla, parmesano light, croutones integrales, aderezo césar bajo en grasa",
+    "precio": 38.00,
+    "imagen": "https://images.unsplash.com/photo-1546793665-c74683f339c1?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 320,
+      "proteinas": 32,
+      "carbohidratos": 22,
+      "grasas": 12
+    },
+    "tags": ["ensalada", "alto en proteína", "fresco"],
+    "disponible": true
+  },
+  {
+    "id": 57,
+    "restauranteId": 11,
+    "nombre": "Bowl de Quinoa y Verduras",
+    "descripcion": "Quinoa, espinaca, tomate cherry, pepino, palta, aderezo de limón",
+    "precio": 35.00,
+    "imagen": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 380,
+      "proteinas": 14,
+      "carbohidratos": 48,
+      "grasas": 16
+    },
+    "tags": ["vegano", "sin gluten", "quinoa"],
+    "disponible": true
+  },
+  {
+    "id": 58,
+    "restauranteId": 11,
+    "nombre": "Ensalada de Atún Fresco",
+    "descripcion": "Mix de lechugas, atún fresco sellado, huevo cocido, aceitunas, tomate, vinagreta balsámica",
+    "precio": 42.00,
+    "imagen": "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 350,
+      "proteinas": 38,
+      "carbohidratos": 18,
+      "grasas": 15
+    },
+    "tags": ["alto en proteína", "omega 3", "fresco"],
+    "disponible": true
+  },
+  {
+    "id": 59,
+    "restauranteId": 12,
+    "nombre": "Pollo al Horno con Camote",
+    "descripcion": "Pechuga de pollo al horno, camote asado, brócoli al vapor, salsa de yogurt",
+    "precio": 45.00,
+    "imagen": "https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 480,
+      "proteinas": 42,
+      "carbohidratos": 45,
+      "grasas": 12
+    },
+    "tags": ["fitness", "alto en proteína", "balanceado"],
+    "disponible": true
+  },
+  {
+    "id": 60,
+    "restauranteId": 12,
+    "nombre": "Tacos Fit de Pescado",
+    "descripcion": "Tortilla integral, pescado a la plancha, repollo morado, pico de gallo, aguacate",
+    "precio": 40.00,
+    "imagen": "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400",
+    "categoria": "Cena",
+    "macros": {
+      "calorias": 420,
+      "proteinas": 35,
+      "carbohidratos": 38,
+      "grasas": 14
+    },
+    "tags": ["fitness", "omega 3", "mexicano"],
+    "disponible": true
+  },
+  {
+    "id": 61,
+    "restauranteId": 12,
+    "nombre": "Bowl de Salmón y Arroz Integral",
+    "descripcion": "Salmón a la plancha, arroz integral, edamames, pepino, salsa teriyaki light",
+    "precio": 52.00,
+    "imagen": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 520,
+      "proteinas": 40,
+      "carbohidratos": 50,
+      "grasas": 18
+    },
+    "tags": ["fitness", "omega 3", "balanceado"],
+    "disponible": true
+  },
+  {
+    "id": 62,
+    "restauranteId": 13,
+    "nombre": "Risotto de Hongos Light",
+    "descripcion": "Arroz arborio, mix de hongos gourmet, parmesano, vino blanco, trufa",
+    "precio": 58.00,
+    "imagen": "https://images.unsplash.com/photo-1476124369491-c4cc9f88b1d6?w=400",
+    "categoria": "Cena",
+    "macros": {
+      "calorias": 450,
+      "proteinas": 15,
+      "carbohidratos": 62,
+      "grasas": 14
+    },
+    "tags": ["gourmet", "italiano", "vegetariano"],
+    "disponible": true
+  },
+  {
+    "id": 63,
+    "restauranteId": 13,
+    "nombre": "Lomo Saltado Saludable",
+    "descripcion": "Lomo fino, cebolla, tomate, ajíes, papas al horno, salsa de soya light",
+    "precio": 62.00,
+    "imagen": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 550,
+      "proteinas": 45,
+      "carbohidratos": 48,
+      "grasas": 20
+    },
+    "tags": ["gourmet", "peruano", "alto en proteína"],
+    "disponible": true
+  },
+  {
+    "id": 64,
+    "restauranteId": 13,
+    "nombre": "Ceviche Premium",
+    "descripcion": "Pescado del día, leche de tigre, cebolla morada, camote, choclo, cancha",
+    "precio": 55.00,
+    "imagen": "https://images.unsplash.com/photo-1579631547644-54f070449f99?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 380,
+      "proteinas": 42,
+      "carbohidratos": 35,
+      "grasas": 8
+    },
+    "tags": ["gourmet", "peruano", "fresco"],
+    "disponible": true
+  },
+  {
+    "id": 65,
+    "restauranteId": 14,
+    "nombre": "Wrap de Pollo y Vegetales",
+    "descripcion": "Tortilla integral, pollo a la plancha, lechuga, tomate, zanahoria, hummus",
+    "precio": 36.00,
+    "imagen": "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 420,
+      "proteinas": 35,
+      "carbohidratos": 42,
+      "grasas": 12
+    },
+    "tags": ["fitness", "wrap", "balanceado"],
+    "disponible": true
+  },
+  {
+    "id": 66,
+    "restauranteId": 14,
+    "nombre": "Bowl Energético",
+    "descripcion": "Pollo, quinoa, palta, huevo, espinaca, tomate cherry, vinagreta",
+    "precio": 42.00,
+    "imagen": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 520,
+      "proteinas": 40,
+      "carbohidratos": 45,
+      "grasas": 20
+    },
+    "tags": ["fitness", "bowl", "energético"],
+    "disponible": true
+  },
+  {
+    "id": 67,
+    "restauranteId": 14,
+    "nombre": "Hamburguesa Fit",
+    "descripcion": "Pan integral, hamburguesa de res magra, lechuga, tomate, cebolla caramelizada, queso light",
+    "precio": 38.00,
+    "imagen": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400",
+    "categoria": "Cena",
+    "macros": {
+      "calorias": 480,
+      "proteinas": 38,
+      "carbohidratos": 42,
+      "grasas": 18
+    },
+    "tags": ["fitness", "hamburguesa", "saludable"],
+    "disponible": true
+  },
+  {
+    "id": 68,
+    "restauranteId": 15,
+    "nombre": "Lomo Saltado Vegetariano",
+    "descripcion": "Seitán, cebolla, tomate, ajíes, papas al horno, salsa de soya",
+    "precio": 40.00,
+    "imagen": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 420,
+      "proteinas": 28,
+      "carbohidratos": 52,
+      "grasas": 12
+    },
+    "tags": ["vegetariano", "peruano", "sin carne"],
+    "disponible": true
+  },
+  {
+    "id": 69,
+    "restauranteId": 15,
+    "nombre": "Ají de Lentejas",
+    "descripcion": "Lentejas, ají amarillo, cebolla, arroz integral, papa sancochada",
+    "precio": 35.00,
+    "imagen": "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 480,
+      "proteinas": 22,
+      "carbohidratos": 72,
+      "grasas": 10
+    },
+    "tags": ["vegetariano", "lentejas", "tradicional"],
+    "disponible": true
+  },
+  {
+    "id": 70,
+    "restauranteId": 15,
+    "nombre": "Ensalada Caprese",
+    "descripcion": "Tomate, mozzarella fresca, albahaca, aceite de oliva, vinagre balsámico",
+    "precio": 32.00,
+    "imagen": "https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?w=400",
+    "categoria": "Entrada",
+    "macros": {
+      "calorias": 280,
+      "proteinas": 16,
+      "carbohidratos": 12,
+      "grasas": 18
+    },
+    "tags": ["vegetariano", "italiano", "fresco"],
+    "disponible": true
+  },
+  {
+    "id": 71,
+    "restauranteId": 16,
+    "nombre": "Pechuga a la Plancha con Ensalada",
+    "descripcion": "Pechuga de pollo a la plancha, ensalada verde mixta, vinagreta light",
+    "precio": 38.00,
+    "imagen": "https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 380,
+      "proteinas": 42,
+      "carbohidratos": 18,
+      "grasas": 14
+    },
+    "tags": ["fit", "bajo en calorías", "alto en proteína"],
+    "disponible": true
+  },
+  {
+    "id": 72,
+    "restauranteId": 16,
+    "nombre": "Bowl de Atún",
+    "descripcion": "Atún al agua, arroz integral, lechuga, tomate, palta, limón",
+    "precio": 40.00,
+    "imagen": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 420,
+      "proteinas": 38,
+      "carbohidratos": 42,
+      "grasas": 12
+    },
+    "tags": ["fit", "omega 3", "balanceado"],
+    "disponible": true
+  },
+  {
+    "id": 73,
+    "restauranteId": 16,
+    "nombre": "Tortilla de Claras con Vegetales",
+    "descripcion": "Claras de huevo, espinaca, champiñones, cebolla, tomate, pan integral",
+    "precio": 28.00,
+    "imagen": "https://images.unsplash.com/photo-1525351484163-7529414344d8?w=400",
+    "categoria": "Desayuno",
+    "macros": {
+      "calorias": 280,
+      "proteinas": 28,
+      "carbohidratos": 32,
+      "grasas": 6
+    },
+    "tags": ["fit", "bajo en grasa", "desayuno"],
+    "disponible": true
+  },
+  {
+    "id": 74,
+    "restauranteId": 17,
+    "nombre": "Yogurt Griego con Granola",
+    "descripcion": "Yogurt griego natural, granola artesanal, miel, frutos rojos",
+    "precio": 25.00,
+    "imagen": "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400",
+    "categoria": "Desayuno",
+    "macros": {
+      "calorias": 320,
+      "proteinas": 18,
+      "carbohidratos": 45,
+      "grasas": 8
+    },
+    "tags": ["yogurt", "probióticos", "desayuno"],
+    "disponible": true
+  },
+  {
+    "id": 75,
+    "restauranteId": 17,
+    "nombre": "Bowl de Yogurt y Frutas",
+    "descripcion": "Yogurt natural, plátano, fresa, arándanos, chía, almendras",
+    "precio": 28.00,
+    "imagen": "https://images.unsplash.com/photo-1590301157890-4810ed352733?w=400",
+    "categoria": "Desayuno",
+    "macros": {
+      "calorias": 350,
+      "proteinas": 15,
+      "carbohidratos": 52,
+      "grasas": 10
+    },
+    "tags": ["yogurt", "frutas", "antioxidantes"],
+    "disponible": true
+  },
+  {
+    "id": 76,
+    "restauranteId": 17,
+    "nombre": "Smoothie de Yogurt y Frutos Rojos",
+    "descripcion": "Yogurt natural, fresas, arándanos, plátano, miel",
+    "precio": 22.00,
+    "imagen": "https://images.unsplash.com/photo-1505252585461-04db1eb84625?w=400",
+    "categoria": "Bebida",
+    "macros": {
+      "calorias": 280,
+      "proteinas": 12,
+      "carbohidratos": 48,
+      "grasas": 5
+    },
+    "tags": ["smoothie", "antioxidantes", "refrescante"],
+    "disponible": true
+  },
+  {
+    "id": 77,
+    "restauranteId": 18,
+    "nombre": "Menú Ejecutivo Saludable",
+    "descripcion": "Sopa de verduras, pollo al horno, arroz integral, ensalada, refresco natural",
+    "precio": 35.00,
+    "imagen": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 520,
+      "proteinas": 38,
+      "carbohidratos": 62,
+      "grasas": 12
+    },
+    "tags": ["menú completo", "nutritivo", "balanceado"],
+    "disponible": true
+  },
+  {
+    "id": 78,
+    "restauranteId": 18,
+    "nombre": "Sándwich Integral de Pavo",
+    "descripcion": "Pan integral, pavo ahumado, lechuga, tomate, queso fresco, mostaza",
+    "precio": 30.00,
+    "imagen": "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 380,
+      "proteinas": 32,
+      "carbohidratos": 42,
+      "grasas": 10
+    },
+    "tags": ["sandwich", "nutritivo", "bajo en grasa"],
+    "disponible": true
+  },
+  {
+    "id": 79,
+    "restauranteId": 18,
+    "nombre": "Bowl Nutritivo",
+    "descripcion": "Pollo desmenuzado, quinoa, brócoli, zanahoria, huevo, salsa de yogurt",
+    "precio": 38.00,
+    "imagen": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400",
+    "categoria": "Almuerzo",
+    "macros": {
+      "calorias": 480,
+      "proteinas": 40,
+      "carbohidratos": 48,
+      "grasas": 14
+    },
+    "tags": ["bowl", "nutritivo", "completo"],
+    "disponible": true
   }
 ]
