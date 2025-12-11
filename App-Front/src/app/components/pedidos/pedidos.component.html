@@ -1,0 +1,112 @@
+<div class="pedidos-page">
+  <div class="container">
+    <!-- Header -->
+    <div class="page-header">
+      <h1>📦 Mis Pedidos</h1>
+      <p class="subtitle">Rastrea y administra tus pedidos</p>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters-container">
+      <button 
+        *ngFor="let estado of estados"
+        class="filter-chip"
+        [class.active]="filtroEstado === estado.id"
+        (click)="filtrarPorEstado(estado.id)">
+        <span class="chip-icon">{{ estado.icon }}</span>
+        <span>{{ estado.nombre }}</span>
+      </button>
+    </div>
+
+    <!-- Loading State -->
+    <div class="loading-container" *ngIf="loading">
+      <div class="spinner"></div>
+      <p>Cargando pedidos...</p>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="!loading && pedidosFiltrados.length === 0">
+      <div class="empty-icon">📭</div>
+      <h2>No se encontraron pedidos</h2>
+      <p>Aún no has realizado ningún pedido. ¡Comienza a explorar nuestros restaurantes saludables!</p>
+      <button class="btn-primary" routerLink="/">Explorar Restaurantes</button>
+    </div>
+
+    <!-- Orders List -->
+    <div class="orders-grid" *ngIf="!loading && pedidosFiltrados.length > 0">
+      <div class="order-card" *ngFor="let pedido of pedidosFiltrados">
+        <!-- Order Header -->
+        <div class="order-header">
+          <div class="order-number">
+            <span class="label">Pedido</span>
+            <span class="number">{{ pedido.numeroPedido }}</span>
+          </div>
+          <div class="order-status" [ngClass]="getEstadoClass(pedido.estado)">
+            {{ getEstadoNombre(pedido.estado) }}
+          </div>
+        </div>
+
+        <!-- Order Date -->
+        <div class="order-date">
+          <span class="icon">📅</span>
+          <span>{{ formatearFecha(pedido.fecha) }}</span>
+        </div>
+
+        <!-- Order Items -->
+        <div class="order-items">
+          <div class="item-row" *ngFor="let item of pedido.items">
+            <span class="item-qty">{{ item.cantidad }}x</span>
+            <span class="item-name">{{ item.nombre }}</span>
+            <span class="item-price">${{ item.precio.toFixed(2) }}</span>
+          </div>
+        </div>
+
+        <!-- Order Details -->
+        <div class="order-details">
+          <div class="detail-row">
+            <span class="icon">💳</span>
+            <span class="text">{{ pedido.metodoPago.toUpperCase() }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="icon">📍</span>
+            <span class="text">{{ pedido.direccion }}</span>
+          </div>
+        </div>
+
+        <!-- Order Footer -->
+        <div class="order-footer">
+          <div class="order-total">
+            <span>Total:</span>
+            <span class="amount">${{ pedido.total.toFixed(2) }}</span>
+          </div>
+          <div class="order-actions">
+            <button class="btn-secondary" (click)="verDetalle(pedido)">Ver Detalles</button>
+            <button class="btn-primary" (click)="repetirPedido(pedido)" *ngIf="pedido.estado === 'entregado'">
+              Volver a Pedir
+            </button>
+          </div>
+        </div>
+
+        <!-- Progress Bar (para pedidos en proceso) -->
+        <div class="order-progress" *ngIf="pedido.estado !== 'entregado' && pedido.estado !== 'cancelado'">
+          <div class="progress-steps">
+            <div class="progress-step" [class.active]="pedido.estado === 'pendiente' || pedido.estado === 'preparando' || pedido.estado === 'en-camino'">
+              <div class="step-dot"></div>
+              <div class="step-label">Confirmado</div>
+            </div>
+            <div class="progress-line" [class.active]="pedido.estado === 'preparando' || pedido.estado === 'en-camino'"></div>
+            <div class="progress-step" [class.active]="pedido.estado === 'preparando' || pedido.estado === 'en-camino'">
+              <div class="step-dot"></div>
+              <div class="step-label">Preparando</div>
+            </div>
+            <div class="progress-line" [class.active]="pedido.estado === 'en-camino'"></div>
+            <div class="progress-step" [class.active]="pedido.estado === 'en-camino'">
+              <div class="step-dot"></div>
+              <div class="step-label">En Camino</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<nav class="navbar">
+  <div class="container nav-container">
+    <a routerLink="/" class="logo">
+      🥗 <span>PrimeFit</span>
+    </a>
+
+    <div class="nav-links">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Inicio</a>
+      <a routerLink="/restaurantes" routerLinkActive="active">Restaurantes</a>
+      
+      <div class="nav-right">
+        <a routerLink="/carrito" class="cart-link">
+          🛒 Carrito
+          <span class="cart-badge" *ngIf="cantidadCarrito > 0">{{ cantidadCarrito }}</span>
+        </a>
+
+        <ng-container *ngIf="currentUser; else loginButton">
+          <a routerLink="/pedidos" routerLinkActive="active">Mis Pedidos</a>
+          <div class="user-menu">
+            <span class="user-name">{{ currentUser.nombre }}</span>
+            <button (click)="logout()" class="btn btn-outline">Cerrar Sesión</button>
+          </div>
+        </ng-container>
+
+        <ng-template #loginButton>
+          <a routerLink="/login" class="btn btn-primary">Iniciar Sesión</a>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</nav>

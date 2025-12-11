@@ -1,0 +1,130 @@
+<div class="detail-page" *ngIf="restaurante">
+  <!-- Header with Banner -->
+  <div class="restaurant-header">
+    <img [src]="restaurante.banner" [alt]="restaurante.nombre" class="header-banner" />
+    <div class="header-overlay">
+      <div class="container">
+        <button class="btn-back" (click)="volver()">← Volver</button>
+        <div class="restaurant-info">
+          <img [src]="restaurante.logo" [alt]="restaurante.nombre" class="restaurant-logo-large" />
+          <div class="info-text">
+            <h1>{{ restaurante.nombre }}</h1>
+            <p class="subtitle">{{ restaurante.descripcion }}</p>
+            <div class="meta-info">
+              <span class="meta-item">
+                <span class="icon">⭐</span>
+                {{ restaurante.calificacion }}
+              </span>
+              <span class="meta-item">
+                <span class="icon">🕐</span>
+                {{ restaurante.tiempoEntrega }}
+              </span>
+              <span class="meta-item">
+                <span class="icon">🚚</span>
+                S/ {{ restaurante.costoEnvio }} envío
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Message -->
+  <div class="cart-message" *ngIf="mensajeCarrito" [class.success]="mensajeCarrito.includes('✓')">
+    {{ mensajeCarrito }}
+  </div>
+
+  <!-- Menu Section -->
+  <section class="menu-section">
+    <div class="container">
+      <h2 class="section-title">Menú</h2>
+
+      <!-- Category Filters -->
+      <div class="categories-filter">
+        <button
+          *ngFor="let categoria of categorias"
+          class="category-btn"
+          [class.active]="categoriaSeleccionada === categoria"
+          (click)="seleccionarCategoria(categoria)"
+        >
+          {{ categoria }}
+        </button>
+      </div>
+
+      <!-- Loading State -->
+      <div *ngIf="loading" class="loading-container">
+        <div class="loader"></div>
+        <p>Cargando platos...</p>
+      </div>
+
+      <!-- Empty State -->
+      <div *ngIf="!loading && platosFiltrados.length === 0" class="empty-state">
+        <span class="empty-icon">🍽️</span>
+        <h3>No hay platos en esta categoría</h3>
+        <p>Prueba seleccionando otra categoría</p>
+      </div>
+
+      <!-- Dishes Grid -->
+      <div *ngIf="!loading && platosFiltrados.length > 0" class="dishes-grid">
+        <div *ngFor="let plato of platosFiltrados" class="dish-card">
+          <div class="dish-image">
+            <img [src]="plato.imagen" [alt]="plato.nombre" />
+            <div class="dish-category-badge">{{ plato.categoria }}</div>
+          </div>
+
+          <div class="dish-body">
+            <div class="dish-header">
+              <h3>{{ plato.nombre }}</h3>
+              <span class="dish-price">S/ {{ plato.precio.toFixed(2) }}</span>
+            </div>
+
+            <p class="dish-description">{{ plato.descripcion }}</p>
+
+            <div class="macros-info">
+              <div class="macro-item">
+                <span class="macro-icon">🔥</span>
+                <span class="macro-value">{{ plato.macros.calorias }}</span>
+                <span class="macro-label">cal</span>
+              </div>
+              <div class="macro-item">
+                <span class="macro-icon">💪</span>
+                <span class="macro-value">{{ plato.macros.proteinas }}g</span>
+                <span class="macro-label">prot</span>
+              </div>
+              <div class="macro-item">
+                <span class="macro-icon">🍞</span>
+                <span class="macro-value">{{ plato.macros.carbohidratos }}g</span>
+                <span class="macro-label">carbs</span>
+              </div>
+              <div class="macro-item">
+                <span class="macro-icon">🥑</span>
+                <span class="macro-value">{{ plato.macros.grasas }}g</span>
+                <span class="macro-label">grasas</span>
+              </div>
+            </div>
+
+            <div class="tags-container">
+              <span *ngFor="let tag of plato.tags" class="tag">{{ tag }}</span>
+            </div>
+
+            <button
+              class="btn-add-cart"
+              [disabled]="!plato.disponible"
+              (click)="agregarAlCarrito(plato)"
+            >
+              <span *ngIf="plato.disponible">+ Agregar al Carrito</span>
+              <span *ngIf="!plato.disponible">No Disponible</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Loading Full Page -->
+<div *ngIf="!restaurante && !loading" class="not-found">
+  <h2>Restaurante no encontrado</h2>
+  <button class="btn-primary" (click)="volver()">Volver a Restaurantes</button>
+</div>

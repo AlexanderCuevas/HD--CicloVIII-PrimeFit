@@ -1,0 +1,111 @@
+<div class="restaurantes-page">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1>Descubre Restaurantes Saludables</h1>
+      <p>Los mejores lugares para comer fit en la ciudad</p>
+    </div>
+  </section>
+
+  <!-- Filters and Search -->
+  <section class="filters-section">
+    <div class="container">
+      <!-- Search Bar -->
+      <div class="search-container">
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Buscar restaurantes..."
+          [(ngModel)]="searchTerm"
+          (input)="onSearchChange()"
+        />
+        <span class="search-icon">🔍</span>
+      </div>
+
+      <!-- Category Filters -->
+      <div class="categories-container">
+        <button
+          *ngFor="let categoria of categorias"
+          class="category-btn"
+          [class.active]="categoriaSeleccionada === categoria"
+          (click)="seleccionarCategoria(categoria)"
+        >
+          {{ categoria }}
+        </button>
+      </div>
+
+      <!-- Sort Options -->
+      <div class="sort-container">
+        <label>Ordenar por:</label>
+        <select [(ngModel)]="ordenamiento" (change)="onOrdenamientoChange()" class="sort-select">
+          <option value="calificacion">Mejor Calificación</option>
+          <option value="tiempo">Tiempo de Entrega</option>
+          <option value="envio">Costo de Envío</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- Restaurants Grid -->
+  <section class="restaurants-section">
+    <div class="container">
+      <!-- Loading State -->
+      <div *ngIf="loading" class="loading-container">
+        <div class="loader"></div>
+        <p>Cargando restaurantes...</p>
+      </div>
+
+      <!-- Empty State -->
+      <div *ngIf="!loading && restaurantesFiltrados.length === 0" class="empty-state">
+        <span class="empty-icon">🍽️</span>
+        <h3>No se encontraron restaurantes</h3>
+        <p>Intenta ajustar los filtros de búsqueda</p>
+      </div>
+
+      <!-- Restaurants Grid -->
+      <div *ngIf="!loading && restaurantesFiltrados.length > 0" class="restaurants-grid">
+        <div
+          *ngFor="let restaurante of restaurantesFiltrados"
+          class="restaurant-card"
+          (click)="verRestaurante(restaurante.id)"
+        >
+          <div class="card-image">
+            <img [src]="restaurante.banner" [alt]="restaurante.nombre" />
+            <div class="card-badge">{{ restaurante.especialidad }}</div>
+          </div>
+
+          <div class="card-body">
+            <div class="card-header">
+              <img [src]="restaurante.logo" [alt]="restaurante.nombre" class="restaurant-logo" />
+              <div>
+                <h3>{{ restaurante.nombre }}</h3>
+                <div class="rating">
+                  <span class="star">⭐</span>
+                  <span>{{ restaurante.calificacion }}</span>
+                </div>
+              </div>
+            </div>
+
+            <p class="description">{{ restaurante.descripcion }}</p>
+
+            <div class="card-footer">
+              <div class="info-item">
+                <span class="icon">🕐</span>
+                <span>{{ restaurante.tiempoEntrega }}</span>
+              </div>
+              <div class="info-item">
+                <span class="icon">🚚</span>
+                <span>S/ {{ restaurante.costoEnvio }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results Count -->
+      <div *ngIf="!loading && restaurantesFiltrados.length > 0" class="results-count">
+        Mostrando {{ restaurantesFiltrados.length }} de {{ restaurantes.length }} restaurantes
+      </div>
+    </div>
+  </section>
+</div>

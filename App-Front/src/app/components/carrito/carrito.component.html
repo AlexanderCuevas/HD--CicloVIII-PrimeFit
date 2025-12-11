@@ -1,0 +1,139 @@
+<div class="carrito-page">
+  <div class="container">
+    <!-- Header -->
+    <div class="carrito-header">
+      <h1>🛒 Carrito de Compras</h1>
+      <button class="btn-continuar" (click)="continuarComprando()">
+        ← Seguir Comprando
+      </button>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-cart" *ngIf="items.length === 0">
+      <div class="empty-icon">🛒</div>
+      <h2>Tu carrito está vacío</h2>
+      <p>¡Agrega algunas deliciosas comidas saludables para comenzar!</p>
+      <button class="btn-primary" (click)="continuarComprando()">
+        Explorar Restaurantes
+      </button>
+    </div>
+
+    <!-- Cart Items -->
+    <div class="carrito-content" *ngIf="items.length > 0">
+      <div class="items-section">
+        <div class="items-header">
+          <h2>Artículos del Carrito ({{ totalItems }})</h2>
+          <button class="btn-text" (click)="vaciarCarrito()">Vaciar Carrito</button>
+        </div>
+
+        <div class="cart-items">
+          <div class="cart-item" *ngFor="let item of items; let i = index">
+            <div class="item-image">
+              <img [src]="item.imagen" [alt]="item.nombre">
+            </div>
+            
+            <div class="item-details">
+              <h3 class="item-name">{{ item.nombre }}</h3>
+              <p class="item-restaurant">{{ item.restauranteNombre }}</p>
+              <div class="item-macros" *ngIf="item.calorias">
+                <span>🔥 {{ item.calorias }} cal</span>
+                <span *ngIf="item.proteinas">💪 {{ item.proteinas }}g proteína</span>
+              </div>
+            </div>
+
+            <div class="item-quantity">
+              <button class="qty-btn" (click)="disminuirCantidad(item)">−</button>
+              <span class="qty-value">{{ item.cantidad }}</span>
+              <button class="qty-btn" (click)="aumentarCantidad(item)">+</button>
+            </div>
+
+            <div class="item-price">
+              <div class="price-amount">S/ {{ (item.precio * item.cantidad).toFixed(2) }}</div>
+              <div class="price-unit">S/ {{ item.precio.toFixed(2) }} c/u</div>
+            </div>
+
+            <button class="btn-remove" (click)="eliminarItem(i)" title="Eliminar artículo">
+              🗑️
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="summary-section">
+        <div class="summary-card">
+          <h2>Resumen del Pedido</h2>
+          
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span>S/ {{ subtotal.toFixed(2) }}</span>
+          </div>
+          
+          <div class="summary-row">
+            <span>Impuestos (18%)</span>
+            <span>S/ {{ impuestos.toFixed(2) }}</span>
+          </div>
+          
+          <div class="summary-row">
+            <span>Envío</span>
+            <span *ngIf="envio > 0">S/ {{ envio.toFixed(2) }}</span>
+            <span *ngIf="envio === 0" class="free-delivery">GRATIS</span>
+          </div>
+
+          <div class="delivery-message" *ngIf="subtotal > 50">
+            <span class="promo-icon">🎉</span>
+            <span>¡Tienes envío gratis!</span>
+          </div>
+          <div class="delivery-message" *ngIf="subtotal <= 50">
+            <span class="info-icon">ℹ️</span>
+            <span>Agrega S/ {{ (50 - subtotal).toFixed(2) }} más para envío gratis</span>
+          </div>
+
+          <div class="summary-divider"></div>
+          
+          <div class="summary-total">
+            <span>Total</span>
+            <span>S/ {{ total.toFixed(2) }}</span>
+          </div>
+
+          <button class="btn-checkout" (click)="procederAlPago()">
+            Proceder al Pago
+          </button>
+
+          <div class="secure-checkout">
+            <span>🔒</span>
+            <span>Pago Seguro</span>
+          </div>
+        </div>
+
+        <!-- Accepted Payments -->
+        <div class="payment-methods">
+          <p>Aceptamos</p>
+          <div class="payment-icons">
+            <span>💳 Tarjetas</span>
+            <span>📱 Yape</span>
+            <span>💰 Plin</span>
+            <span>💵 Efectivo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Login Prompt Modal -->
+<div class="modal-overlay" *ngIf="showLoginPrompt" (click)="cerrarPrompt()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="cerrarPrompt()">✕</button>
+    <div class="modal-icon">🔐</div>
+    <h2>Inicio de Sesión Requerido</h2>
+    <p>Por favor inicia sesión para completar tu compra</p>
+    <div class="modal-actions">
+      <button class="btn-secondary" (click)="cerrarPrompt()">Cancelar</button>
+      <button class="btn-primary" (click)="irALogin()">Iniciar Sesión</button>
+    </div>
+    <p class="modal-footer">
+      ¿No tienes cuenta? <a routerLink="/register">Regístrate</a>
+    </p>
+  </div>
+</div>

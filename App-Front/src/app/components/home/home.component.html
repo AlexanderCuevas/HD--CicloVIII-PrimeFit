@@ -1,0 +1,92 @@
+<div class="home">
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">Descubre Restaurantes Saludables</h1>
+      <p class="hero-subtitle">Explora una variedad de comidas nutritivas de restaurantes destacados</p>
+      
+      <!-- Search Bar -->
+      <div class="search-container">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input 
+            type="text" 
+            [(ngModel)]="searchTerm" 
+            (input)="buscarRestaurantes()"
+            placeholder="Buscar restaurantes, cocinas, platos..."
+            class="search-input">
+        </div>
+      </div>
+
+      <!-- Promo Banner -->
+      <div class="promo-banner">
+        <span class="promo-text">20% de Descuento en Todas las Ensaladas</span>
+        <button class="promo-btn">Ordenar Ahora</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="categories">
+    <div class="container">
+      <div class="categories-scroll">
+        <button 
+          *ngFor="let cat of categorias"
+          class="category-chip"
+          [class.active]="categoriaSeleccionada === cat.id"
+          (click)="filtrarPorCategoria(cat.id)">
+          <span class="category-icon">{{cat.icon}}</span>
+          <span class="category-name">{{cat.nombre}}</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Restaurants Section -->
+  <section class="restaurants">
+    <div class="container">
+      <h2 class="section-title">Restaurants</h2>
+      
+      <div class="loading-spinner" *ngIf="loading">
+        <div class="spinner"></div>
+      </div>
+      
+      <div class="restaurants-grid" *ngIf="!loading">
+        <div 
+          *ngFor="let restaurante of restaurantesFiltrados" 
+          class="restaurant-card"
+          (click)="verRestaurante(restaurante.id)">
+          <div class="restaurant-image">
+            <img [src]="restaurante.banner" [alt]="restaurante.nombre">
+            <div class="restaurant-badge" *ngIf="restaurante.costoEnvio === 0">
+              <span>🚚 Envío Gratis</span>
+            </div>
+          </div>
+          <div class="restaurant-content">
+            <div class="restaurant-header">
+              <img [src]="restaurante.logo" [alt]="restaurante.nombre" class="restaurant-logo">
+              <h3 class="restaurant-name">{{ restaurante.nombre }}</h3>
+            </div>
+            <p class="restaurant-description">{{ restaurante.descripcion }}</p>
+            <div class="restaurant-tags" *ngIf="restaurante.especialidad">
+              <span class="tag">{{ restaurante.especialidad }}</span>
+            </div>
+            <div class="restaurant-meta">
+              <span class="meta-item">⭐ {{ restaurante.calificacion }}</span>
+              <span class="meta-item">🕒 {{ restaurante.tiempoEntrega }}</span>
+            </div>
+            <button class="view-menu-btn">Ver Menú</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div class="empty-state" *ngIf="!loading && restaurantesFiltrados.length === 0">
+        <span class="empty-icon">🔍</span>
+        <h3>No se encontraron restaurantes</h3>
+        <p>Intenta ajustar tu búsqueda o filtros</p>
+      </div>
+    </div>
+  </section>
+</div>

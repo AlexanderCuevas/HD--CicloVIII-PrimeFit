@@ -1,0 +1,206 @@
+<div class="checkout-page">
+  <div class="container">
+    <!-- Progress Indicator -->
+    <div class="progress-steps">
+      <div class="step completed">
+        <div class="step-number">✓</div>
+        <div class="step-label">Carrito</div>
+      </div>
+      <div class="step active">
+        <div class="step-number">2</div>
+        <div class="step-label">Pago</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-label">Confirmación</div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="checkout-content" *ngIf="!showSuccess">
+      <div class="checkout-main">
+        <h1>Finalizar Compra</h1>
+
+        <!-- Delivery Information -->
+        <div class="section-card">
+          <h2>🚚 Información de Entrega</h2>
+          <form [formGroup]="checkoutForm">
+            <div class="form-group">
+              <label for="direccion">Dirección de Entrega *</label>
+              <input 
+                type="text" 
+                id="direccion"
+                formControlName="direccion"
+                placeholder="Calle, número, distrito"
+                class="form-control"
+                [class.error]="checkoutForm.get('direccion')?.invalid && checkoutForm.get('direccion')?.touched">
+              <span class="error-message" *ngIf="checkoutForm.get('direccion')?.invalid && checkoutForm.get('direccion')?.touched">
+                La dirección es obligatoria (mín 10 caracteres)
+              </span>
+            </div>
+
+            <div class="form-group">
+              <label for="referencia">Referencia (Opcional)</label>
+              <input 
+                type="text" 
+                id="referencia"
+                formControlName="referencia"
+                placeholder="Piso, departamento, color del edificio, etc."
+                class="form-control">
+            </div>
+
+            <div class="form-group">
+              <label for="telefono">Número de Teléfono *</label>
+              <input 
+                type="tel" 
+                id="telefono"
+                formControlName="telefono"
+                placeholder="999888777"
+                class="form-control"
+                [class.error]="checkoutForm.get('telefono')?.invalid && checkoutForm.get('telefono')?.touched">
+              <span class="error-message" *ngIf="checkoutForm.get('telefono')?.invalid && checkoutForm.get('telefono')?.touched">
+                Se requiere un número válido (9 dígitos)
+              </span>
+            </div>
+
+            <div class="form-group">
+              <label for="notas">Notas del Pedido (Opcional)</label>
+              <textarea 
+                id="notas"
+                formControlName="notas"
+                placeholder="Instrucciones especiales para la entrega..."
+                class="form-control"
+                rows="3"></textarea>
+            </div>
+          </form>
+        </div>
+
+        <!-- Payment Method -->
+        <div class="section-card">
+          <h2>💳 Método de Pago</h2>
+          <div class="payment-methods">
+            <div 
+              *ngFor="let metodo of metodosPago"
+              class="payment-option"
+              [class.selected]="metodoPago === metodo.id"
+              (click)="seleccionarMetodoPago(metodo.id)">
+              <div class="payment-icon">{{ metodo.icon }}</div>
+              <div class="payment-info">
+                <div class="payment-name">{{ metodo.nombre }}</div>
+                <div class="payment-desc">{{ metodo.descripcion }}</div>
+              </div>
+              <div class="payment-check">
+                <span *ngIf="metodoPago === metodo.id">✓</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Order Items Summary -->
+        <div class="section-card">
+          <h2>📦 Artículos del Pedido ({{ items.length }})</h2>
+          <div class="order-items">
+            <div class="order-item" *ngFor="let item of items">
+              <img [src]="item.imagen" [alt]="item.nombre">
+              <div class="item-info">
+                <div class="item-name">{{ item.nombre }}</div>
+                <div class="item-restaurant">{{ item.restauranteNombre }}</div>
+              </div>
+              <div class="item-qty">x{{ item.cantidad }}</div>
+              <div class="item-price">S/ {{ (item.precio * item.cantidad).toFixed(2) }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order Summary Sidebar -->
+      <div class="checkout-sidebar">
+        <div class="summary-card sticky">
+          <h2>Resumen del Pedido</h2>
+          
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span>S/ {{ subtotal.toFixed(2) }}</span>
+          </div>
+          
+          <div class="summary-row">
+            <span>Impuestos (18%)</span>
+            <span>S/ {{ impuestos.toFixed(2) }}</span>
+          </div>
+          
+          <div class="summary-row">
+            <span>Envío</span>
+            <span *ngIf="envio > 0">S/ {{ envio.toFixed(2) }}</span>
+            <span *ngIf="envio === 0" class="free">GRATIS</span>
+          </div>
+
+          <div class="summary-divider"></div>
+          
+          <div class="summary-total">
+            <span>Total</span>
+            <span>S/ {{ total.toFixed(2) }}</span>
+          </div>
+
+          <button 
+            class="btn-place-order" 
+            [disabled]="checkoutForm.invalid || !metodoPago || processingPayment"
+            (click)="realizarPedido()">
+            <span *ngIf="!processingPayment">Realizar Pedido</span>
+            <span *ngIf="processingPayment">
+              <span class="spinner-small"></span> Procesando...
+            </span>
+          </button>
+
+          <button class="btn-back" (click)="volverAlCarrito()">
+            ← Volver al Carrito
+          </button>
+
+          <div class="secure-badge">
+            <span>🔒</span>
+            <span>Pago Seguro y Encriptado</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="success-modal" *ngIf="showSuccess">
+      <div class="success-content">
+        <div class="success-icon">✓</div>
+        <h2>¡Pedido Realizado con Éxito!</h2>
+        <p class="order-number">Pedido #{{ numeroPedido }}</p>
+        <p class="success-message">
+          Tu pedido ha sido recibido y está siendo preparado. 
+          Te enviaremos actualizaciones por SMS.
+        </p>
+        <div class="success-details">
+          <div class="detail-item">
+            <span class="icon">📦</span>
+            <div>
+              <div class="detail-label">Total de Artículos</div>
+              <div class="detail-value">{{ items.length }} artículos</div>
+            </div>
+          </div>
+          <div class="detail-item">
+            <span class="icon">💰</span>
+            <div>
+              <div class="detail-label">Monto Total</div>
+              <div class="detail-value">${{ total.toFixed(2) }}</div>
+            </div>
+          </div>
+          <div class="detail-item">
+            <span class="icon">🕒</span>
+            <div>
+              <div class="detail-label">Entrega Estimada</div>
+              <div class="detail-value">30-45 minutos</div>
+            </div>
+          </div>
+        </div>
+        <div class="success-actions">
+          <button class="btn-primary" routerLink="/pedidos">Ver Mis Pedidos</button>
+          <button class="btn-secondary" routerLink="/">Seguir Comprando</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

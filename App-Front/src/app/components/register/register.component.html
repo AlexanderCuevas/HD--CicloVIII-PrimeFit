@@ -1,0 +1,235 @@
+<div class="register-page">
+  <div class="register-container">
+    <div class="register-card">
+      <!-- Header -->
+      <div class="register-header">
+        <h1>Crear Cuenta</h1>
+        <p>Únete a PrimeFit y comienza tu vida saludable</p>
+      </div>
+
+      <!-- Alert Messages -->
+      <div *ngIf="errorMessage" class="alert alert-error">
+        <span class="alert-icon">⚠️</span>
+        <span>{{ errorMessage }}</span>
+      </div>
+
+      <div *ngIf="successMessage" class="alert alert-success">
+        <span class="alert-icon">✓</span>
+        <span>{{ successMessage }}</span>
+      </div>
+
+      <!-- Register Form -->
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+        <!-- Username -->
+        <div class="form-group">
+          <label for="username">Nombre de Usuario</label>
+          <input
+            type="text"
+            id="username"
+            formControlName="username"
+            class="form-input"
+            placeholder="juanperez"
+            [class.error]="username?.invalid && username?.touched"
+          />
+          <div *ngIf="username?.invalid && username?.touched" class="error-message">
+            <span *ngIf="username?.errors?.['required']">El nombre de usuario es requerido</span>
+            <span *ngIf="username?.errors?.['minlength']">Mínimo 3 caracteres</span>
+          </div>
+        </div>
+
+        <!-- Nombre y Apellido en una fila -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input
+              type="text"
+              id="nombre"
+              formControlName="nombre"
+              class="form-input"
+              placeholder="Juan"
+              [class.error]="nombre?.invalid && nombre?.touched"
+            />
+            <div *ngIf="nombre?.invalid && nombre?.touched" class="error-message">
+              <span *ngIf="nombre?.errors?.['required']">El nombre es requerido</span>
+              <span *ngIf="nombre?.errors?.['minlength']">Mínimo 2 caracteres</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="apellido">Apellido</label>
+            <input
+              type="text"
+              id="apellido"
+              formControlName="apellido"
+              class="form-input"
+              placeholder="Pérez"
+              [class.error]="apellido?.invalid && apellido?.touched"
+            />
+            <div *ngIf="apellido?.invalid && apellido?.touched" class="error-message">
+              <span *ngIf="apellido?.errors?.['required']">El apellido es requerido</span>
+              <span *ngIf="apellido?.errors?.['minlength']">Mínimo 2 caracteres</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Correo Electrónico</label>
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            class="form-input"
+            placeholder="correo@ejemplo.com"
+            [class.error]="email?.invalid && email?.touched"
+          />
+          <div *ngIf="email?.invalid && email?.touched" class="error-message">
+            <span *ngIf="email?.errors?.['required']">El correo es requerido</span>
+            <span *ngIf="email?.errors?.['email']">Correo inválido</span>
+          </div>
+        </div>
+
+        <!-- Teléfono -->
+        <div class="form-group">
+          <label for="telefono">Teléfono</label>
+          <input
+            type="tel"
+            id="telefono"
+            formControlName="telefono"
+            class="form-input"
+            placeholder="987654321"
+            [class.error]="telefono?.invalid && telefono?.touched"
+          />
+          <div *ngIf="telefono?.invalid && telefono?.touched" class="error-message">
+            <span *ngIf="telefono?.errors?.['required']">El teléfono es requerido</span>
+            <span *ngIf="telefono?.errors?.['pattern']">Debe tener 9 dígitos</span>
+          </div>
+        </div>
+
+        <!-- Dirección -->
+        <div class="form-group">
+          <label for="direccion">Dirección de Entrega</label>
+          <textarea
+            id="direccion"
+            formControlName="direccion"
+            class="form-input form-textarea"
+            placeholder="Av. Principal 123, Miraflores"
+            rows="2"
+            [class.error]="direccion?.invalid && direccion?.touched"
+          ></textarea>
+          <div *ngIf="direccion?.invalid && direccion?.touched" class="error-message">
+            <span *ngIf="direccion?.errors?.['required']">La dirección es requerida</span>
+            <span *ngIf="direccion?.errors?.['minlength']">Mínimo 10 caracteres</span>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="password">Contraseña</label>
+          <div class="password-input-wrapper">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              id="password"
+              formControlName="password"
+              class="form-input"
+              placeholder="Mínimo 6 caracteres"
+              [class.error]="password?.invalid && password?.touched"
+            />
+            <button
+              type="button"
+              class="password-toggle"
+              (click)="togglePasswordVisibility()"
+            >
+              {{ showPassword ? '👁️' : '👁️‍🗨️' }}
+            </button>
+          </div>
+          <div *ngIf="password?.invalid && password?.touched" class="error-message">
+            <span *ngIf="password?.errors?.['required']">La contraseña es requerida</span>
+            <span *ngIf="password?.errors?.['minlength']">Mínimo 6 caracteres</span>
+          </div>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="form-group">
+          <label for="confirmPassword">Confirmar Contraseña</label>
+          <div class="password-input-wrapper">
+            <input
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              id="confirmPassword"
+              formControlName="confirmPassword"
+              class="form-input"
+              placeholder="Repite tu contraseña"
+              [class.error]="confirmPassword?.invalid && confirmPassword?.touched"
+            />
+            <button
+              type="button"
+              class="password-toggle"
+              (click)="toggleConfirmPasswordVisibility()"
+            >
+              {{ showConfirmPassword ? '👁️' : '👁️‍🗨️' }}
+            </button>
+          </div>
+          <div *ngIf="confirmPassword?.invalid && confirmPassword?.touched" class="error-message">
+            <span *ngIf="confirmPassword?.errors?.['required']">Confirma tu contraseña</span>
+            <span *ngIf="confirmPassword?.errors?.['passwordMismatch']">Las contraseñas no coinciden</span>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          class="btn-submit"
+          [disabled]="loading || registerForm.invalid"
+        >
+          <span *ngIf="!loading">Crear Cuenta</span>
+          <span *ngIf="loading" class="loading-spinner">
+            <span class="spinner"></span>
+            Registrando...
+          </span>
+        </button>
+
+        <!-- Login Link -->
+        <div class="login-link">
+          <p>¿Ya tienes cuenta? <a routerLink="/login">Inicia sesión</a></p>
+        </div>
+      </form>
+    </div>
+
+    <!-- Side Image/Info -->
+    <div class="register-info">
+      <div class="info-content">
+        <h2>Beneficios de Unirte</h2>
+        <ul class="benefits-list">
+          <li>
+            <span class="benefit-icon">🥗</span>
+            <div>
+              <strong>Comida Saludable</strong>
+              <p>Acceso a 10+ restaurantes fit</p>
+            </div>
+          </li>
+          <li>
+            <span class="benefit-icon">🚚</span>
+            <div>
+              <strong>Entrega Rápida</strong>
+              <p>Recibe tu pedido en 20-45 min</p>
+            </div>
+          </li>
+          <li>
+            <span class="benefit-icon">💪</span>
+            <div>
+              <strong>Nutrición Completa</strong>
+              <p>Información de macros en cada plato</p>
+            </div>
+          </li>
+          <li>
+            <span class="benefit-icon">⭐</span>
+            <div>
+              <strong>Ofertas Exclusivas</strong>
+              <p>Descuentos en tu primer pedido</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

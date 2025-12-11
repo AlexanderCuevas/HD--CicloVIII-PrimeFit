@@ -1,0 +1,79 @@
+<footer class="footer">
+  <div class="footer-container">
+    <!-- Top Section -->
+    <div class="footer-top">
+      <div class="footer-column brand">
+        <h3 class="brand-name">🥗 PrimeFIT</h3>
+        <p class="brand-tagline">Tu marketplace de estilo de vida saludable</p>
+        <p class="brand-description">
+          Descubre los mejores restaurantes saludables de tu ciudad. 
+          Comidas frescas y nutritivas entregadas a tu puerta.
+        </p>
+        <div class="social-links">
+          <a *ngFor="let social of socialLinks" 
+             [href]="social.url" 
+             class="social-link"
+             [title]="social.name">
+            {{ social.icon }}
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-column">
+        <h4>Enlaces Rápidos</h4>
+        <ul class="footer-links">
+          <li *ngFor="let link of quickLinks">
+            <a [routerLink]="link.route">{{ link.name }}</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>Soporte</h4>
+        <ul class="footer-links">
+          <li *ngFor="let link of supportLinks">
+            <a [routerLink]="link.route">{{ link.name }}</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>Descarga Nuestra App</h4>
+        <div class="download-buttons">
+          <a *ngFor="let app of downloadLinks" 
+             [href]="app.url" 
+             class="download-btn">
+            <span class="app-icon">{{ app.icon }}</span>
+            <span class="app-name">{{ app.name }}</span>
+          </a>
+        </div>
+        <div class="payment-methods">
+          <h4>Aceptamos</h4>
+          <div class="payment-icons">
+            <span>💳</span>
+            <span>📱</span>
+            <span>💰</span>
+            <span>💵</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="footer-divider"></div>
+
+    <!-- Bottom Section -->
+    <div class="footer-bottom">
+      <p class="copyright">
+        © {{ currentYear }} PrimeFIT. Todos los derechos reservados.
+      </p>
+      <div class="footer-meta">
+        <a routerLink="/terms">Terms</a>
+        <span>•</span>
+        <a routerLink="/privacy">Privacy</a>
+        <span>•</span>
+        <a routerLink="/cookies">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
