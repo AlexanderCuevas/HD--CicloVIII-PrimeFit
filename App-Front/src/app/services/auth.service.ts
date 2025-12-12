@@ -12,6 +12,7 @@ export interface User {
   role: string;
   telefono?: string;
   direccion?: string;
+  restauranteId?: number;
 }
 
 export interface AuthResponse {

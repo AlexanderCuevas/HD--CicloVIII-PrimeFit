@@ -57,7 +57,19 @@ router.get('/:id', (req, res) => {
 // Crear plato (admin)
 router.post('/', authMiddleware, adminMiddleware, (req, res) => {
   try {
-    const plato = crearPlato(req.body);
+    const data = { ...req.body };
+    
+    // Si es restaurant_admin, forzar el restauranteId del usuario
+    if (req.user.role === 'restaurant_admin' && req.user.restauranteId) {
+      data.restauranteId = req.user.restauranteId;
+    }
+    
+    // Validar que el restauranteId esté presente
+    if (!data.restauranteId) {
+      return res.status(400).json({ error: 'restauranteId es requerido' });
+    }
+    
+    const plato = crearPlato(data);
     res.status(201).json(plato);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -67,6 +79,19 @@ router.post('/', authMiddleware, adminMiddleware, (req, res) => {
 // Actualizar plato (admin)
 router.put('/:id', authMiddleware, adminMiddleware, (req, res) => {
   try {
+    const platoActual = obtenerPlatoPorId(parseInt(req.params.id));
+    
+    if (!platoActual) {
+      return res.status(404).json({ error: 'Plato no encontrado' });
+    }
+    
+    // Si es restaurant_admin, verificar que el plato pertenezca a su restaurante
+    if (req.user.role === 'restaurant_admin' && req.user.restauranteId) {
+      if (platoActual.restauranteId !== req.user.restauranteId) {
+        return res.status(403).json({ error: 'No autorizado para modificar este plato' });
+      }
+    }
+    
     const plato = actualizarPlato(parseInt(req.params.id), req.body);
     res.json(plato);
   } catch (error) {
@@ -77,6 +102,19 @@ router.put('/:id', authMiddleware, adminMiddleware, (req, res) => {
 // Eliminar plato (admin)
 router.delete('/:id', authMiddleware, adminMiddleware, (req, res) => {
   try {
+    const platoActual = obtenerPlatoPorId(parseInt(req.params.id));
+    
+    if (!platoActual) {
+      return res.status(404).json({ error: 'Plato no encontrado' });
+    }
+    
+    // Si es restaurant_admin, verificar que el plato pertenezca a su restaurante
+    if (req.user.role === 'restaurant_admin' && req.user.restauranteId) {
+      if (platoActual.restauranteId !== req.user.restauranteId) {
+        return res.status(403).json({ error: 'No autorizado para eliminar este plato' });
+      }
+    }
+    
     const resultado = eliminarPlato(parseInt(req.params.id));
     res.json(resultado);
   } catch (error) {

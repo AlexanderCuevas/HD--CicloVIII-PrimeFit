@@ -1,5 +1,5 @@
 class User {
-  constructor({ id, username, email, password, nombre, apellido, telefono, direccion, role = 'cliente' }) {
+  constructor({ id, username, email, password, nombre, apellido, telefono, direccion, role = 'cliente', restauranteId }) {
     this.id = id;
     this.username = username;
     this.email = email;
@@ -8,7 +8,8 @@ class User {
     this.apellido = apellido;
     this.telefono = telefono;
     this.direccion = direccion;
-    this.role = role; // "cliente", "admin", "restaurante"
+    this.role = role; // "cliente", "admin", "restaurant_admin"
+    this.restauranteId = restauranteId; // Solo para restaurant_admin
     this.fechaRegistro = new Date();
     this.activo = true;
   }
@@ -23,7 +24,7 @@ class User {
   }
 
   toSafeJSON() {
-    return {
+    const safeData = {
       id: this.id,
       username: this.username,
       email: this.email,
@@ -31,6 +32,12 @@ class User {
       apellido: this.apellido,
       role: this.role
     };
+    
+    if (this.restauranteId) {
+      safeData.restauranteId = this.restauranteId;
+    }
+    
+    return safeData;
   }
 }
 

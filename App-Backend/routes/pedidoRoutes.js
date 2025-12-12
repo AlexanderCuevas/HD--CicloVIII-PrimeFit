@@ -61,7 +61,14 @@ router.get('/mis-pedidos', (req, res) => {
 // Obtener todos los pedidos (admin)
 router.get('/todos', adminMiddleware, (req, res) => {
   try {
-    const pedidos = obtenerTodosPedidos(req.query);
+    const filtros = { ...req.query };
+    
+    // Si es restaurant_admin, filtrar solo pedidos de su restaurante
+    if (req.user.role === 'restaurant_admin' && req.user.restauranteId) {
+      filtros.restauranteId = req.user.restauranteId;
+    }
+    
+    const pedidos = obtenerTodosPedidos(filtros);
     res.json(pedidos);
   } catch (error) {
     res.status(500).json({ error: error.message });

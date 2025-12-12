@@ -16,6 +16,9 @@
 
         <ng-container *ngIf="currentUser; else loginButton">
           <a routerLink="/pedidos" routerLinkActive="active">Mis Pedidos</a>
+          <a *ngIf="currentUser.role === 'admin' || currentUser.role === 'restaurant_admin'" routerLink="/admin" routerLinkActive="active" class="admin-link">
+            Admin
+          </a>
           <div class="user-menu">
             <span class="user-name">{{ currentUser.nombre }}</span>
             <button (click)="logout()" class="btn btn-outline">Cerrar Sesión</button>

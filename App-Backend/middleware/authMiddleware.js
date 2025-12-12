@@ -17,8 +17,15 @@ export function authMiddleware(req, res, next) {
 }
 
 export function adminMiddleware(req, res, next) {
-  if (req.user.role !== 'admin') {
+  if (req.user.role !== 'admin' && req.user.role !== 'restaurant_admin') {
     return res.status(403).json({ error: 'Acceso denegado. Se requiere rol de administrador' });
+  }
+  next();
+}
+
+export function superAdminMiddleware(req, res, next) {
+  if (req.user.role !== 'admin') {
+    return res.status(403).json({ error: 'Acceso denegado. Se requiere rol de super administrador' });
   }
   next();
 }

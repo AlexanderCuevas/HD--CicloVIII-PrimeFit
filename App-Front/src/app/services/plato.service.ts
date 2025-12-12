@@ -48,4 +48,23 @@ export class PlatoService {
   getPlatosPorRestaurante(restauranteId: number): Observable<Plato[]> {
     return this.http.get<Plato[]>(`${this.apiUrl}/restaurante/${restauranteId}`);
   }
+
+  // Métodos para administrador
+  crearPlato(platoData: any): Observable<Plato> {
+    const token = localStorage.getItem('token');
+    const headers = { 'Authorization': `Bearer ${token}` };
+    return this.http.post<Plato>(this.apiUrl, platoData, { headers });
+  }
+
+  actualizarPlato(id: number, platoData: any): Observable<Plato> {
+    const token = localStorage.getItem('token');
+    const headers = { 'Authorization': `Bearer ${token}` };
+    return this.http.put<Plato>(`${this.apiUrl}/${id}`, platoData, { headers });
+  }
+
+  eliminarPlato(id: number): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = { 'Authorization': `Bearer ${token}` };
+    return this.http.delete(`${this.apiUrl}/${id}`, { headers });
+  }
 }

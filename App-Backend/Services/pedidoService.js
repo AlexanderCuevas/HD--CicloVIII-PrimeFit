@@ -90,6 +90,14 @@ export function obtenerTodosPedidos(filtros = {}) {
     resultado = resultado.filter(p => p.usuarioId === parseInt(filtros.usuarioId));
   }
 
+  // Filtrar por restaurante si se proporciona
+  if (filtros.restauranteId) {
+    resultado = resultado.filter(p => {
+      // Filtrar pedidos que contengan items del restaurante especificado
+      return p.items.some(item => item.restauranteId === parseInt(filtros.restauranteId));
+    });
+  }
+
   return resultado
     .map(p => p.toJSON())
     .sort((a, b) => new Date(b.fechaPedido) - new Date(a.fechaPedido));

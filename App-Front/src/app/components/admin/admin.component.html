@@ -1,0 +1,239 @@
+<div class="admin-container">
+  <div class="admin-sidebar">
+    <h2>🛠️ Panel Admin</h2>
+    <nav class="admin-nav">
+      <button 
+        [class.active]="vistaActual === 'pedidos'" 
+        (click)="cambiarVista('pedidos')">
+        📦 Gestionar Pedidos
+      </button>
+      <button 
+        [class.active]="vistaActual === 'platos'" 
+        (click)="cambiarVista('platos')">
+        🍽️ Agregar Platos
+      </button>
+    </nav>
+  </div>
+
+  <div class="admin-content">
+    <!-- Vista de Gestión de Pedidos -->
+    <div *ngIf="vistaActual === 'pedidos'" class="pedidos-section">
+      <h1>Gestión de Pedidos</h1>
+      
+      <div *ngIf="loading" class="loading">Cargando pedidos...</div>
+
+      <div *ngIf="!loading && pedidos.length === 0" class="empty-state">
+        No hay pedidos para gestionar
+      </div>
+
+      <div *ngIf="!loading && pedidos.length > 0" class="pedidos-grid">
+        <div *ngFor="let pedido of pedidos" class="pedido-card">
+          <div class="pedido-header">
+            <h3>Pedido #{{ pedido.id }}</h3>
+            <span class="badge" [ngClass]="getEstadoClass(pedido.estado)">
+              {{ pedido.estado }}
+            </span>
+          </div>
+
+          <div class="pedido-info">
+            <p><strong>Cliente ID:</strong> {{ pedido.usuarioId }}</p>
+            <p><strong>Fecha:</strong> {{ formatearFecha(pedido.fechaPedido) }}</p>
+            <p><strong>Total:</strong> S/{{ pedido.total.toFixed(2) }}</p>
+            <p><strong>Dirección:</strong> {{ pedido.direccionEntrega }}</p>
+            <p *ngIf="pedido.telefono"><strong>Teléfono:</strong> {{ pedido.telefono }}</p>
+            <p *ngIf="pedido.metodoPago"><strong>Método Pago:</strong> {{ pedido.metodoPago }}</p>
+            <p *ngIf="pedido.notas"><strong>Notas:</strong> {{ pedido.notas }}</p>
+          </div>
+
+          <div class="pedido-items">
+            <h4>Items:</h4>
+            <ul>
+              <li *ngFor="let item of pedido.items">
+                {{ item.cantidad }}x {{ item.nombre }} - S/{{ item.precio.toFixed(2) }}
+              </li>
+            </ul>
+          </div>
+
+          <div class="pedido-actions">
+            <button 
+              *ngIf="pedido.estado === 'pendiente'" 
+              class="btn btn-success"
+              (click)="cambiarEstadoPedido(pedido.id, 'confirmado')">
+              ✅ Confirmar
+            </button>
+            <button 
+              *ngIf="pedido.estado === 'confirmado'" 
+              class="btn btn-primary"
+              (click)="cambiarEstadoPedido(pedido.id, 'preparando')">
+              👨‍🍳 Preparando
+            </button>
+            <button 
+              *ngIf="pedido.estado === 'preparando'" 
+              class="btn btn-info"
+              (click)="cambiarEstadoPedido(pedido.id, 'en_camino')">
+              🚚 En Camino
+            </button>
+            <button 
+              *ngIf="pedido.estado === 'en_camino'" 
+              class="btn btn-success"
+              (click)="cambiarEstadoPedido(pedido.id, 'entregado')">
+              ✅ Entregado
+            </button>
+            <button 
+              *ngIf="['pendiente', 'confirmado', 'preparando'].includes(pedido.estado)" 
+              class="btn btn-danger"
+              (click)="cambiarEstadoPedido(pedido.id, 'cancelado')">
+              ❌ Cancelar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vista de Agregar Platos -->
+    <div *ngIf="vistaActual === 'platos'" class="platos-section">
+      <h1>Agregar Nuevo Plato</h1>
+
+      <form class="plato-form" (submit)="agregarPlato(); $event.preventDefault()">
+        <div class="form-section">
+          <h3>Información Básica</h3>
+          
+          <div class="form-group">
+            <label>Nombre del Plato *</label>
+            <input 
+              type="text" 
+              [(ngModel)]="nuevoPlato.nombre" 
+              name="nombre"
+              placeholder="Ej: Ensalada César"
+              required>
+          </div>
+
+          <div class="form-group">
+            <label>Descripción *</label>
+            <textarea 
+              [(ngModel)]="nuevoPlato.descripcion" 
+              name="descripcion"
+              rows="3"
+              placeholder="Describe el plato..."
+              required></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Precio (S/) *</label>
+              <input 
+                type="number" 
+                [(ngModel)]="nuevoPlato.precio" 
+                name="precio"
+                min="0" 
+                step="0.01"
+                required>
+            </div>
+
+            <div class="form-group">
+              <label>Categoría</label>
+              <input 
+                type="text" 
+                [(ngModel)]="nuevoPlato.categoria" 
+                name="categoria"
+                placeholder="Ej: Ensaladas">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>URL de Imagen</label>
+            <input 
+              type="url" 
+              [(ngModel)]="nuevoPlato.imagen" 
+              name="imagen"
+              placeholder="https://ejemplo.com/imagen.jpg">
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>Información Nutricional</h3>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label>Calorías (kcal)</label>
+              <input 
+                type="number" 
+                [(ngModel)]="nuevoPlato.macros.calorias" 
+                name="calorias"
+                min="0">
+            </div>
+
+            <div class="form-group">
+              <label>Proteínas (g)</label>
+              <input 
+                type="number" 
+                [(ngModel)]="nuevoPlato.macros.proteinas" 
+                name="proteinas"
+                min="0" 
+                step="0.1">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Carbohidratos (g)</label>
+              <input 
+                type="number" 
+                [(ngModel)]="nuevoPlato.macros.carbohidratos" 
+                name="carbohidratos"
+                min="0" 
+                step="0.1">
+            </div>
+
+            <div class="form-group">
+              <label>Grasas (g)</label>
+              <input 
+                type="number" 
+                [(ngModel)]="nuevoPlato.macros.grasas" 
+                name="grasas"
+                min="0" 
+                step="0.1">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>Etiquetas / Características</h3>
+          
+          <div class="etiquetas-grid">
+            <label 
+              *ngFor="let etiqueta of etiquetasDisponibles" 
+              class="etiqueta-checkbox">
+              <input 
+                type="checkbox" 
+                [checked]="tieneEtiqueta(etiqueta)"
+                (change)="toggleEtiqueta(etiqueta)">
+              <span>{{ etiqueta }}</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-group">
+            <label class="checkbox-label">
+              <input 
+                type="checkbox" 
+                [(ngModel)]="nuevoPlato.disponible" 
+                name="disponible">
+              <span>Plato disponible</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" (click)="limpiarFormulario()">
+            Limpiar
+          </button>
+          <button type="submit" class="btn btn-primary" [disabled]="loading">
+            {{ loading ? 'Guardando...' : '✅ Agregar Plato' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

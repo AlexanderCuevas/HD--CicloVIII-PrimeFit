@@ -67,4 +67,20 @@ export class PedidoService {
       { headers: this.getHeaders() }
     );
   }
+
+  // Métodos para administrador
+  obtenerTodosPedidos(): Observable<Pedido[]> {
+    return this.http.get<Pedido[]>(
+      `${this.apiUrl}/todos`,
+      { headers: this.getHeaders() }
+    );
+  }
+
+  actualizarEstadoPedido(id: number, estado: string): Observable<Pedido> {
+    return this.http.patch<Pedido>(
+      `${this.apiUrl}/${id}/estado`,
+      { estado },
+      { headers: this.getHeaders() }
+    );
+  }
 }

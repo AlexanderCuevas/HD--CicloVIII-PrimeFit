@@ -15,6 +15,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 import { AuthService } from './services/auth.service';
 import { RestauranteService } from './services/restaurante.service';
@@ -29,6 +30,7 @@ const routes = [
   { path: 'carrito', component: CarritoComponent },
   { path: 'checkout', component: CheckoutComponent },
   { path: 'pedidos', component: PedidosComponent },
+  { path: 'admin', component: AdminComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: '**', redirectTo: '' }
@@ -46,7 +48,8 @@ const routes = [
     LoginComponent,
     RegisterComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
