@@ -27,7 +27,9 @@ function savePedidos(pedidos) {
 let pedidos = loadPedidos();
 
 // Crear pedido desde carrito o items directos
-export function crearPedido(usuarioId, items, direccionEntrega, costoEnvio = 0, subtotal = 0, total = 0) {
+export function crearPedido(usuarioId, items, direccionEntrega, costoEnvio = 0, subtotal = 0, total = 0, datosAdicionales = {}) {
+  let desdeCarrito = false;
+  
   // Si no se pasan items, intentar obtenerlos del carrito
   if (!items || items.length === 0) {
     const carrito = obtenerCarrito(usuarioId);
@@ -37,6 +39,7 @@ export function crearPedido(usuarioId, items, direccionEntrega, costoEnvio = 0, 
     items = carrito.items;
     subtotal = carrito.total;
     total = carrito.total + costoEnvio;
+    desdeCarrito = true;
   }
 
   const nuevoPedido = new Pedido({
@@ -47,14 +50,22 @@ export function crearPedido(usuarioId, items, direccionEntrega, costoEnvio = 0, 
     costoEnvio,
     total,
     direccionEntrega,
-    estado: 'pendiente'
+    estado: 'pendiente',
+    ...datosAdicionales // Incluir teléfono, referencia, metodoPago, notas, etc.
   });
 
   pedidos.push(nuevoPedido);
   savePedidos(pedidos);
 
-  // Vaciar carrito después de crear el pedido
-  vaciarCarrito(usuarioId);
+  // Vaciar carrito solo si se usó el carrito para crear el pedido
+  if (desdeCarrito) {
+    try {
+      vaciarCarrito(usuarioId);
+    } catch (error) {
+      // Ignorar error si el carrito no existe
+      console.log('No se pudo vaciar el carrito:', error.message);
+    }
+  }
 
   return nuevoPedido.toJSON();
 }

@@ -18,7 +18,63 @@
     "total": 47.29,
     "direccionEntrega": "Av. Aviación 2160",
     "estado": "pendiente",
-    "fechaPedido": "2025-12-11T17:49:05.169Z",
-    "fechaActualizacion": "2025-12-11T17:49:05.169Z"
+    "telefono": "",
+    "referencia": "",
+    "metodoPago": "contraentrega",
+    "notas": "",
+    "fechaPedido": "2025-12-12T05:21:28.146Z",
+    "fechaActualizacion": "2025-12-12T05:21:28.146Z"
+  },
+  {
+    "id": 2,
+    "usuarioId": 3,
+    "items": [
+      {
+        "id": "1765516399824",
+        "platoId": 2,
+        "nombre": "Smoothie Bowl Açaí",
+        "precio": 35,
+        "cantidad": 1,
+        "imagen": "https://www.joyousapron.com/wp-content/uploads/2020/05/acai-smoothie-bowl-sq-1.jpg",
+        "restauranteNombre": "FitGreen"
+      }
+    ],
+    "subtotal": 35,
+    "costoEnvio": 5.99,
+    "total": 47.29,
+    "direccionEntrega": "Av. Aviación 2160",
+    "estado": "pendiente",
+    "telefono": "922285164",
+    "referencia": "Frente a una bodega",
+    "metodoPago": "contraentrega",
+    "notas": "Rapido",
+    "fechaPedido": "2025-12-12T05:21:28.146Z",
+    "fechaActualizacion": "2025-12-12T05:21:28.146Z"
+  },
+  {
+    "id": 3,
+    "usuarioId": 3,
+    "items": [
+      {
+        "id": "1765516913944",
+        "platoId": 2,
+        "nombre": "Smoothie Bowl Açaí",
+        "precio": 35,
+        "cantidad": 1,
+        "imagen": "https://www.joyousapron.com/wp-content/uploads/2020/05/acai-smoothie-bowl-sq-1.jpg",
+        "restauranteNombre": "FitGreen"
+      }
+    ],
+    "subtotal": 35,
+    "costoEnvio": 5.99,
+    "total": 47.29,
+    "direccionEntrega": "Av. Aviación 2160",
+    "estado": "pendiente",
+    "telefono": "922285164",
+    "referencia": "Frente a una bodega",
+    "metodoPago": "yape",
+    "notas": "Rapido",
+    "fechaPedido": "2025-12-12T05:22:21.481Z",
+    "fechaActualizacion": "2025-12-12T05:22:21.481Z"
   }
 ]

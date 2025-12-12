@@ -17,12 +17,33 @@ router.use(authMiddleware);
 // Crear pedido desde carrito
 router.post('/', (req, res) => {
   try {
-    const { items, direccionEntrega, costoEnvio, subtotal, total } = req.body;
+    const { items, direccionEntrega, costoEnvio = 0, subtotal = 0, total = 0, telefono, referencia, metodoPago, notas } = req.body;
+    
+    if (!items || items.length === 0) {
+      return res.status(400).json({ error: 'No hay items en el pedido' });
+    }
+    
+    if (!direccionEntrega) {
+      return res.status(400).json({ error: 'La dirección de entrega es requerida' });
+    }
     
     // Crear pedido con items directamente
-    const pedido = crearPedido(req.user.id, items, direccionEntrega, costoEnvio, subtotal, total);
-    res.status(201).json(pedido);
+    const pedido = crearPedido(
+      req.user.id, 
+      items, 
+      direccionEntrega, 
+      costoEnvio, 
+      subtotal, 
+      total,
+      { telefono, referencia, metodoPago, notas }
+    );
+    
+    res.status(201).json({ 
+      ...pedido, 
+      numeroPedido: `#${pedido.id.toString().padStart(6, '0')}` 
+    });
   } catch (error) {
+    console.error('Error al crear pedido:', error);
     res.status(400).json({ error: error.message });
   }
 });

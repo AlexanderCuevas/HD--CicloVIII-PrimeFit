@@ -51,14 +51,24 @@ export class PedidosComponent implements OnInit {
   cargarPedidos() {
     this.pedidoService.getPedidos().subscribe({
       next: (data: any) => {
-        this.pedidos = data;
+        // Mapear los pedidos del backend al formato esperado
+        this.pedidos = data.map((pedido: any) => ({
+          id: pedido.id.toString(),
+          numeroPedido: `#${pedido.id.toString().padStart(6, '0')}`,
+          fecha: pedido.fechaPedido, // Usar fechaPedido del backend
+          estado: pedido.estado,
+          items: pedido.items || [],
+          total: pedido.total,
+          metodoPago: pedido.metodoPago || 'contraentrega',
+          direccion: pedido.direccionEntrega
+        }));
         this.loading = false;
       },
       error: (err: any) => {
         console.error('Error al cargar pedidos:', err);
         this.loading = false;
-        // Simular pedidos para demo
-        this.cargarPedidosDemo();
+        // No cargar pedidos demo si hay error, dejar vacío
+        this.pedidos = [];
       }
     });
   }
@@ -72,8 +82,8 @@ export class PedidosComponent implements OnInit {
         fecha: new Date().toISOString(),
         estado: 'preparando',
         items: [
-          { nombre: 'Grilled Chicken Bowl', cantidad: 2, precio: 12.99 },
-          { nombre: 'Quinoa Salad', cantidad: 1, precio: 9.99 }
+          { nombre: 'Bowl de Pollo a la Parrilla', cantidad: 2, precio: 12.99 },
+          { nombre: 'Ensalada de Quinoa', cantidad: 1, precio: 9.99 }
         ],
         total: 35.97,
         metodoPago: 'yape',
@@ -85,7 +95,7 @@ export class PedidosComponent implements OnInit {
         fecha: new Date(Date.now() - 86400000).toISOString(),
         estado: 'entregado',
         items: [
-          { nombre: 'Teriyaki Salmon', cantidad: 1, precio: 15.99 }
+          { nombre: 'Salmón Teriyaki', cantidad: 1, precio: 15.99 }
         ],
         total: 18.99,
         metodoPago: 'tarjeta',
@@ -140,7 +150,15 @@ export class PedidosComponent implements OnInit {
   }
 
   formatearFecha(fecha: string): string {
+    if (!fecha) return 'Fecha no disponible';
+    
     const date = new Date(fecha);
+    
+    // Verificar si la fecha es válida
+    if (isNaN(date.getTime())) {
+      return 'Fecha no disponible';
+    }
+    
     return date.toLocaleDateString('es-ES', { 
       year: 'numeric', 
       month: 'short', 

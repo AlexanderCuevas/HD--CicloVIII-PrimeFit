@@ -22,7 +22,20 @@ function loadUsers() {
 
 // Guardar usuarios al archivo
 function saveUsers(users) {
-  fs.writeFileSync(USERS_FILE, JSON.stringify(users.map(u => u.toJSON()), null, 2));
+  const usersData = users.map(u => ({
+    id: u.id,
+    username: u.username,
+    email: u.email,
+    password: u.password, // Guardar password hasheado
+    nombre: u.nombre,
+    apellido: u.apellido,
+    telefono: u.telefono,
+    direccion: u.direccion,
+    role: u.role,
+    fechaRegistro: u.fechaRegistro,
+    activo: u.activo
+  }));
+  fs.writeFileSync(USERS_FILE, JSON.stringify(usersData, null, 2));
 }
 
 let users = loadUsers();

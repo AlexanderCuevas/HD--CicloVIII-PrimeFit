@@ -14,9 +14,6 @@ import { AuthService } from '../../services/auth.service';
           <button type="submit" class="btn btn-primary btn-block">Entrar</button>
         </form>
         <p>¿No tienes cuenta? <a routerLink="/register">Regístrate</a></p>
-        <div class="demo-credentials">
-          <p><strong>Demo:</strong> admin / admin123</p>
-        </div>
       </div>
     </div>
   `,
@@ -28,7 +25,6 @@ import { AuthService } from '../../services/auth.service';
     .btn-block { width: 100%; }
     p { text-align: center; margin-top: 20px; }
     a { color: var(--primary-color); text-decoration: none; }
-    .demo-credentials { background: var(--gray-50); padding: 15px; border-radius: 8px; margin-top: 20px; text-align: center; font-size: 14px; }
   `]
 })
 export class LoginComponent {

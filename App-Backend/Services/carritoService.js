@@ -74,7 +74,9 @@ export function vaciarCarrito(usuarioId) {
   const carrito = carritos.get(usuarioId);
   
   if (!carrito) {
-    throw new Error('Carrito no encontrado');
+    // Crear un carrito vacío si no existe
+    carritos.set(usuarioId, new Carrito({ usuarioId }));
+    return carritos.get(usuarioId).toJSON();
   }
 
   carrito.vaciar();

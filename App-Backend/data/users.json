@@ -8,7 +8,7 @@
     "telefono": "555-0000",
     "direccion": "Av. Principal 123",
     "role": "admin",
-    "fechaRegistro": "2025-12-11T17:47:04.824Z",
+    "fechaRegistro": "2025-12-12T05:03:14.383Z",
     "activo": true
   },
   {
@@ -20,31 +20,20 @@
     "telefono": "555-1234",
     "direccion": "Calle Salud 456",
     "role": "cliente",
-    "fechaRegistro": "2025-12-11T17:47:04.824Z",
+    "fechaRegistro": "2025-12-12T05:03:14.383Z",
     "activo": true
   },
   {
     "id": 3,
     "username": "Potter",
-    "email": "rodrigobellocapa@gmail.com",
+    "email": "rbello@gmail.com",
+    "password": "$2a$10$7ckTCXCqYIfVmlRoAfOabO1oVCJ1WCSD2ludX11SEnHwfJ8M5rSY6",
     "nombre": "Rodrigo",
     "apellido": "Capa",
     "telefono": "922285164",
     "direccion": "Av. Aviación 2160",
     "role": "cliente",
-    "fechaRegistro": "2025-12-11T17:47:04.824Z",
-    "activo": true
-  },
-  {
-    "id": 4,
-    "username": "rcapa@gmail.com",
-    "email": "rcapa@gmail.com",
-    "nombre": "Rodrigo",
-    "apellido": "Capa",
-    "telefono": "922285164",
-    "direccion": "Av. Aviación 2160",
-    "role": "cliente",
-    "fechaRegistro": "2025-12-11T17:48:45.582Z",
+    "fechaRegistro": "2025-12-12T05:09:30.353Z",
     "activo": true
   }
 ]
